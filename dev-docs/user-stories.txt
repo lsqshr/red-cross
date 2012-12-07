@@ -1,0 +1,39 @@
+
+The is a web based system for the Harbin Red Cross Central Hospital Delivery Centre. This system will be used both for representing the official introduction for the department, staff and supporting a discussion board.
+
+User stories for unregistered users:
+1. As a web viewer, I should be able to view the description of the whole hospital and the department.
+
+2. As a web viewer, I should be able to view the list of the staff in this department, with sufficient information filled in.
+
+3. As a web viewer, I should be able to view all the questions and answers in the discussion board. The answers from doctors should appear before others.
+
+4. As a web viewer, I should be able to view all the news/hints/tutorials posted by the doctors.
+
+5. As a web viewer, I should be able to get a clear idea of the site map, and to go to every main module with exactly one click.
+
+6. As a web viewer, I should be able to login the system using both sins/tencent account.
+
+7. As a web viewer, I should be able to post questions and answer questions with filling the required form fields(private informations like age and gender).
+
+User stories for registered users:
+Note: there are 3 roles of registered users in this system:patient/doctor/administrator
+
+8. As a patient, I should be able to store my personal information with account configuration.(sensitive information shall be avoided, such as credit card number)
+
+9. As a patient, I should be able to post & answer questions in the system. My personal information will be filled in automatically.
+
+10. As a patient, after I post one question, I should be able to select who is most wanted to answer this question.
+
+11. As a doctor, I should be able to post & answer questions with personal information filled automatically. My posts, should be rendered differently with the posts from normal users.
+
+12.As a doctor, I should be able to post news/hints/tutorials as an official blog.
+
+13.As an administrator, I should be able to change the text and pictures which appear in the introductions.
+
+14. As an administrator, I should be able to delete and change any questions/answers/blog posts in the system.
+
+15. As an administrator, I should be able to certificate any registered users as doctors.
+
+
+
