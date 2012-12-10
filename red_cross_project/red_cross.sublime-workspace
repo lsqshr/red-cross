@@ -1,0 +1,600 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Http",
+				"HttpResponseRedirect"
+			],
+			[
+				"Join",
+				"JOININ"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"margin",
+				"margin-right"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/home/siqi/git/red-cross/fixtures/initial_data.json",
+			"settings":
+			{
+				"buffer_size": 348,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "templates/homepage.html",
+			"settings":
+			{
+				"buffer_size": 1799,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "#models.py: this is the global models for the whole system\n#author: SIQI\nfrom django.db import models\n\nclass Thread(models.Model):\n	title = models.CharField(max_length=50)\n	update_time = models.DateTimeField()\n	post_time = models.DateTimeField()\n	stamps = models.ManyToManyField()",
+			"file": "models.py",
+			"file_size": 245,
+			"file_write_time": 1354980067000000,
+			"settings":
+			{
+				"buffer_size": 280,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "SublimeCodeIntel\n================\n\nCode intelligence plugin ported from `Open Komodo Editor <http://www.openkomodo.com/>`_ to `Sublime Text 2 <http://www.sublimetext.com/2>`_.\n\nSupports all the languages Komodo Editor supports for Code Intelligence (CIX, CodeIntel2):\n\n    PHP, Python, RHTML, JavaScript, Smarty, Mason, Node.js, XBL, Tcl, HTML, HTML5, TemplateToolkit, XUL, Django, Perl, Ruby, Python3.\n\nProvides the following features:\n\n* Jump to Symbol Definition - Jump to the file and line of the definition of a symbol.\n* Imports autocomplete - Shows autocomplete with the available modules/symbols in real time.\n* Function Call tooltips - Displays information in the status bar about the working function.\n\nPlugin should work in all three platforms (MacOS X, Windows and Linux).\n\n.. image:: http://pledgie.com/campaigns/16511.png?skin_name=chrome\n   :alt: Click here to lend your support to SublimeCodeIntel and make a donation at pledgie.com!\n   :target: http://pledgie.com/campaigns/16511\n\n\nInstalling\n----------\n**With the Package Control plugin:** The easiest way to install SublimeCodeIntel is through Package Control, which can be found at this site: http://wbond.net/sublime_packages/package_control\n\nOnce you install Package Control, restart ST2 and bring up the Command Palette (``Command+Shift+P`` on OS X, ``Control+Shift+P`` on Linux/Windows). Select \"Package Control: Install Package\", wait while Package Control fetches the latest package list, then select SublimeCodeIntel when the list appears. The advantage of using this method is that Package Control will automatically keep SublimeCodeIntel up to date with the latest version.\n\n**Without Git:** Download the latest source from `GitHub <http://github.com/Kronuz/SublimeCodeIntel>`_ and copy the whole directory into the Packages directory.\n\n**With Git:** Clone the repository in your Sublime Text 2 Packages directory, located somewhere in user's \"Home\" directory::\n\n    git clone git://github.com/Kronuz/SublimeCodeIntel.git\n\n\nThe \"Packages\" packages directory is located at:\n\n* OS X::\n\n    ~/Library/Application Support/Sublime Text 2/Packages/\n\n* Linux::\n\n    ~/.Sublime Text 2/Packages/\n\n* Windows::\n\n    %APPDATA%/Sublime Text 2/Packages/\n\n\nUsing\n-----\n\n* Sublime CodeIntel will allow you to jump around symbol definitions even across files with just a click. To \"Jump to Symbol Declaration\" use ``super+f3`` or ``alt+click`` over the symbol.\n\n* Start typing code as usual, autocomplete will pop up whenever it's available. To trigger manual codeintel autocompletion use ``shift+ctrl+space``.\n\nDon't despair! The first time you use it it needs to build some indexes and it can take more than a few seconds (around six in my configuration).\n\nIt just works!\n\n\nConfiguring\n-----------\nFor adding additional library paths (django and extra libs paths for Python or extra paths to look for .js files for JavaScript for example), either add those paths as folders to your project, or create an optional codeintel configuration file in your home or in your project's root.\n\nConfiguration files (``~/.codeintel/config`` or ``project_root/.codeintel/config``). All configurations are optional. Example::\n\n    {\n        \"PHP\": {\n            \"php\": '/usr/bin/php',\n            \"phpExtraPaths\": [],\n            \"phpConfigFile\": 'php.ini'\n        },\n        \"JavaScript\": {\n            \"javascriptExtraPaths\": []\n        },\n        \"Perl\": {\n            \"perl\": \"/usr/bin/perl\",\n            \"perlExtraPaths\": []\n        },\n        \"Ruby\": {\n            \"ruby\": \"/usr/bin/ruby\",\n            \"rubyExtraPaths\": []\n        },\n        \"Python\": {\n            \"python\": '/usr/bin/python',\n            \"pythonExtraPaths\": []\n        },\n        \"Python3\": {\n            \"python\": '/usr/bin/python3',\n            \"pythonExtraPaths\": []\n        }\n    }\n\nAdditional settings can be configured in the User File Settings:\n\n* A list of disabled languages can be set using \"codeintel_disabled_languages\". Ex. ``\"codeintel_disabled_languages\": ['css']``\n\n* Live autocomplete can be disabled by setting \"codeintel_live\" to false.\n\n* Live autocompletion can be disabled in a per-language basis, using \"codeintel_live_disabled_languages\". Ex. ``\"codeintel_live_disabled_languages\": ['css']``\n\n* Information for more settings is available in the ``Base File.sublime-settings`` file.\n\n\nTroubleshooting\n---------------\n\nUsing ``build.sh``\n\n\nIf everything else fails, try rebuilding the libraries using ``build.sh``.\nYou need to install some things to make sure it's going to work.\nThese are likely to be packaged on your system, such as, for Ubuntu/Debian-like\ndistros. Open a terminal and do::\n\n    $ sudo apt-get install g++\n\n    $ sudo apt-get install python-dev\n\nOnce you have installed those, you may need to use the ``build.sh`` script.\nIn your terminal, go to your ``Packages/SublimeCodeIntel/src`` folder, then\nsimply run::\n\n    $ ./build.sh\n\n\nWhat's New\n----------\nv1.3 (20-12-2011):\n\n* This build should fix many of the problems seen in Linux systems.\n\n* Libraries for Linux rebuilt with libpcre statically (libpcre bundled for Linux builds).\n\n* ``calltip()`` is now thread safe (which caused some strange behavior in Linux where Sublime Text 2 ended up being unresponsive).\n\n\nv1.2 (18-12-2011):\n\n* JavaScript support improved (it's now much nicer with the CPU).\n\n* CSS files support much improved (thanks to Jon's new features in autocomplete).\n\n* Added palette commands to disable/enable the plugin in many ways.\n\n* Added ``codeintel_live_disabled_languages`` and fixed ``codeintel_live`` to disable SublimeCodeIntel live autocomplete mode.\n\n* Smarter language detection and fallbacks.\n\n* Improved autocomplete triggering, should now respond better.\n\n* Support for new completion settings in Sublime Text 2 Build 2148.\n\n\nLicense\n-------\nThe plugin is based in code from the Open Komodo Editor and has a MPL license.\n\nPorted from Open Komodo by German M. Bravo (Kronuz).\n",
+			"file": "/home/siqi/SublimeCodeIntel/README.rst",
+			"file_size": 5927,
+			"file_write_time": 1354979637000000,
+			"settings":
+			{
+				"buffer_size": 5927,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/siqi/git/red-cross/dev-docs/user-stories.txt",
+			"settings":
+			{
+				"buffer_size": 2243,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 264.0,
+		"selected_items":
+		[
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"save",
+				"File: Save All"
+			],
+			[
+				"sav",
+				"File: Save All"
+			],
+			[
+				"set syn css",
+				"Set Syntax: CSS"
+			],
+			[
+				":q",
+				"Set Syntax: SQL"
+			],
+			[
+				"select",
+				"Bookmarks: Select All"
+			],
+			[
+				"sele",
+				"Rot13 Selection"
+			],
+			[
+				"selec",
+				"Bookmarks: Select All"
+			],
+			[
+				"snip",
+				"Snippet: Function"
+			],
+			[
+				"",
+				"Set Syntax: Python"
+			],
+			[
+				"file",
+				"File: Save All"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/siqi/git/red-cross/red_cross_project/red_cross.sublime-project",
+		"/home/siqi/git/red-cross/red_cross_project/templates/site_base.html",
+		"/home/siqi/git/red-cross/red_cross_project/settings.py",
+		"/home/siqi/git/red-cross/red_cross_project/templates/_footer.html",
+		"/home/siqi/git/Join-In/JOININ/notification/liscence&docs/docs/usage.txt",
+		"/home/siqi/git/Join-In/JOININ/message_wall/management.py",
+		"/home/siqi/git/Join-In/JOININ/message_wall/views.py",
+		"/home/siqi/git/Join-In/JOININ/templates/message_wall.html",
+		"/home/siqi/git/Join-In/JOININ/templates/message_modules/message_wall_left_sidebar.html",
+		"/home/siqi/Desktop/lnm/backend/scanner.py",
+		"/home/siqi/git/Join-In/git_commit.py",
+		"/home/siqi/git/Join-In/JOININ/message_wall/message_wall.py",
+		"/home/siqi/git/Join-In/JOININ/notification/views.py",
+		"/home/siqi/git/Join-In/JOININ/notification/templates/notification/notices.html",
+		"/home/siqi/git/Join-In/JOININ/templates/message_modules/message_wall_right_sidebar.html",
+		"/home/siqi/git/Join-In/JOININ/templates/accounts_modules/groups_joined.html",
+		"/home/siqi/git/Join-In/JOININ/message_wall/forms.py",
+		"/home/siqi/git/Join-In/JOININ/templates/message_modules/group_message_wall_header.html",
+		"/home/siqi/git/Join-In/JOININ/templates/header_base.html",
+		"/home/siqi/git/Join-In/JOININ/templates/accounts_modules/mainframe_header.html",
+		"/home/siqi/git/Join-In/JOININ/accounts/models.py",
+		"/home/siqi/git/Join-In/JOININ/templates/mainframe_base.html",
+		"/home/siqi/git/Join-In/JOININ/templates/congrats_signup.html",
+		"/home/siqi/git/Join-In/JOININ/accounts/urls.py",
+		"/home/siqi/git/Join-In/JOININ/message_wall/urls.py",
+		"/home/siqi/git/Join-In/JOININ/accounts/views.py",
+		"/home/siqi/git/Join-In/JOININ/templates/base.html",
+		"/home/siqi/git/Join-In/JOININ/settings.py",
+		"/home/siqi/git/Join-In/JOININ/notification/decorators.py",
+		"/home/siqi/git/Join-In/JOININ/notification/urls.py",
+		"/home/siqi/git/Join-In/JOININ/notification/templates/notification/successful_join/notice.html",
+		"/home/siqi/git/Join-In/JOININ/notification/templates/notification/notice_settings.html",
+		"/home/siqi/git/Join-In/JOININ/notification/templates/notification/base.html",
+		"/home/siqi/git/Join-In/JOININ/notification/templates/notification/notice.html",
+		"/home/siqi/git/Join-In/JOININ/urls.py",
+		"/home/siqi/Desktop/哈尔滨红十字中心医院生殖中心门户网站",
+		"/home/siqi/git/Join-In/JOININ/notification/feeds.py",
+		"/home/siqi/git/Join-In/JOININ/notification/admin.py",
+		"/home/siqi/git/Join-In/JOININ/notification/engine.py",
+		"/home/siqi/git/Join-In/JOININ/notification/context_processors.py",
+		"/home/siqi/git/Join-In/JOININ/notification/templates/notification/successful_join_full.txt",
+		"/home/siqi/git/Join-In/JOININ/message_wall/notification_manager.py",
+		"/home/siqi/git/Join-In/JOININ/notification/management/__init__.py",
+		"/home/siqi/git/Join-In/JOININ/templates/accounts_modules/apply_dialog.html",
+		"/home/siqi/git/Join-In/Design/mainframe_layout.css",
+		"/home/siqi/git/Join-In/JOININ/templates/private_message_wall.html",
+		"/home/siqi/git/Join-In/manage.py",
+		"/home/siqi/git/Join-In/Design/popup.css",
+		"/home/siqi/git/Join-In/JOININ/templates/message_modules/message_wall_header.html",
+		"/home/siqi/git/Join-In/JOININ/templates/message_modules/private_message_wall_sidebar.html",
+		"/home/siqi/git/Join-In/JOININ/templates/accounts_modules/create_group.html",
+		"/home/siqi/git/Join-In/JOININ/templates/message_modules/message_sender.html",
+		"/home/siqi/git/Join-In/Design/styles.css",
+		"/home/siqi/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/siqi/git/Join-In/static/admin/css/dashboard.css",
+		"/usr/share/applications/defaults.list",
+		"/usr/share/applications/sublime.desktop"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"notification",
+			"debug",
+			"/private/message_wall",
+			"link",
+			"t",
+			"link",
+			"notification",
+			"private_message_wall.html",
+			"host",
+			"email",
+			"signup",
+			"notification",
+			"send_notification",
+			"create_group",
+			"installed",
+			"feed",
+			"apply",
+			"body",
+			"popup",
+			"grey",
+			"header",
+			"NotificationManager",
+			"trash",
+			"DoesNotExist",
+			"self",
+			"list",
+			"gedit.desktop"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"/message_wall/private",
+			"message_wall.html",
+			"Feed",
+			"sublime.desktop"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/home/siqi/git/red-cross/fixtures/initial_data.json",
+					"settings":
+					{
+						"buffer_size": 348,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								324,
+								324
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "templates/homepage.html",
+					"settings":
+					{
+						"buffer_size": 1799,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1799,
+								1799
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 648.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "models.py",
+					"settings":
+					{
+						"buffer_size": 280,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								279,
+								279
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/siqi/SublimeCodeIntel/README.rst",
+					"settings":
+					{
+						"buffer_size": 5927,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2166,
+								2166
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/RestructuredText/reStructuredText.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2106.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/home/siqi/git/red-cross/dev-docs/user-stories.txt",
+					"settings":
+					{
+						"buffer_size": 2243,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2243,
+								2243
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 118.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"us",
+				"JOININ/notification/liscence&docs/docs/usage.txt"
+			],
+			[
+				"management",
+				"JOININ/message_wall/management.py"
+			],
+			[
+				"git",
+				"git_commit.py"
+			],
+			[
+				"message_wall_l",
+				"JOININ/templates/message_modules/message_wall_left_sidebar.html"
+			],
+			[
+				"message_wall",
+				"JOININ/templates/message_wall.html"
+			],
+			[
+				"message",
+				"JOININ/message_wall/message_wall.py"
+			],
+			[
+				"views",
+				"JOININ/notification/views.py"
+			],
+			[
+				"notices",
+				"JOININ/notification/templates/notification/notices.html"
+			],
+			[
+				"form",
+				"JOININ/message_wall/forms.py"
+			],
+			[
+				"header",
+				"JOININ/templates/header_base.html"
+			],
+			[
+				"mess",
+				"JOININ/templates/message_wall.html"
+			],
+			[
+				"congra",
+				"JOININ/templates/congrats_signup.html"
+			],
+			[
+				"base",
+				"JOININ/templates/base.html"
+			],
+			[
+				"base.html",
+				"JOININ/templates/mainframe_base.html"
+			],
+			[
+				"settings",
+				"JOININ/settings.py"
+			],
+			[
+				"url",
+				"JOININ/accounts/urls.py"
+			],
+			[
+				"usage",
+				"JOININ/notification/liscence&docs/docs/usage.txt"
+			],
+			[
+				"setting",
+				"JOININ/settings.py"
+			],
+			[
+				"manage",
+				"JOININ/message_wall/management.py"
+			],
+			[
+				"mana",
+				"manage.py"
+			],
+			[
+				"usa",
+				"JOININ/notification/liscence&docs/docs/usage.txt"
+			],
+			[
+				"apply",
+				"JOININ/templates/accounts_modules/apply_dialog.html"
+			],
+			[
+				".css",
+				"Design/mainframe_layout.css"
+			],
+			[
+				".",
+				"Design/popup.css"
+			],
+			[
+				"private",
+				"JOININ/templates/private_message_wall.html"
+			],
+			[
+				"side",
+				"JOININ/templates/message_modules/private_message_wall_sidebar.html"
+			],
+			[
+				"sidebar",
+				"JOININ/templates/message_modules/private_message_wall_sidebar.html"
+			],
+			[
+				"pri",
+				"JOININ/templates/private_message_wall.html"
+			],
+			[
+				"messag_sen",
+				"JOININ/templates/message_modules/message_sender.html"
+			],
+			[
+				"crea",
+				"JOININ/templates/accounts_modules/create_group.html"
+			],
+			[
+				"lay",
+				"Design/mainframe_layout.css"
+			],
+			[
+				"css",
+				"Design/styles.css"
+			],
+			[
+				"dash",
+				"static/admin/css/dashboard.css"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 252.0,
+	"status_bar_visible": true
+}
