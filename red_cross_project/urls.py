@@ -17,7 +17,7 @@ urlpatterns = patterns("",
     url(r"^admin/", include(admin.site.urls)),
     url(r"^account/signup/$", SignupView.as_view(), name="account_signup"),
     url(r"^account/", include("account.urls")),
-    url(r"^bbs/", include("clean_bbs.urls")),
+    url(r"^bbs/", include("red_cross_project.clean_bbs.urls")),
 
 )
 

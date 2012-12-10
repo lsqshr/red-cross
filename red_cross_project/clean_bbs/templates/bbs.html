@@ -1,0 +1,13 @@
+{% extends "site_base.html" %}
+
+{% block extra_head %}
+<link href="{STATIC_URL}/css/bbs_layout.css" rel="stylesheet" type="text/css" media="screen">
+{% endblock %}
+
+{% block body %}
+	{% include "search_bar.html" %}
+	{% include "filters.html" %}
+	<a href="{% url "post" %}" class="btn">发表新问题</a>
+	{% include "question_list.html" %}
+	{% include "right_sidebar.html" %}
+{% endblock %}

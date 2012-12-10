@@ -136,7 +136,9 @@ INSTALLED_APPS = [
     "metron",
     
     # project
+    "red_cross_project",
     "red_cross_project.profiles",
+    "red_cross_project.clean_bbs",
 ]
 
 # A sample logging configuration. The only tangible logging
