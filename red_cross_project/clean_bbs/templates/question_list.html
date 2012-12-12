@@ -1,0 +1,21 @@
+<ul>
+	{% for question in questions %}
+		<div>
+			<div>
+				{{ question.title }}
+			</div>
+			<div>
+				<a href="{{question.id}}">{{ question.content }}</a>
+				{{ question.update_time}}
+				来自 {{question.author.username}}
+			<div>
+		</div>
+	{% endfor %}
+</ul>
+<div class="thread_page_index">
+	<a href="{% url bbs_page_index last_index %}">上一页</a>
+	第{{cur_index}}页
+	<a href="{% url bbs_page_index next_index %}">下一页</a>|
+	<a href="{% url bbs%}">首页</a>
+	<a href="{% url bbs_page_index total_page_number %}">末页</a> <span>(共 {{ total_page_number }} 页)<span>
+</div>

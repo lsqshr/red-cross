@@ -8,13 +8,26 @@
 	<a href="/bbs/">返回</a>
 </div>
 
+<div>
+	{{question.title}}
+</div>
+
+<div>
+	{{question.content}}
+</div>
+
+{% for answer in question.answers.all %}
+	<div>
+		{{ answer.content }}
+	</div>
+{% endfor %}
+
 <div class="single_form">
 <form action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
-	<div>标题： {{form.title}}</div>
-	<div>内容： {{form.content}}</div>
+	<div>您的回答： {{form.content}}</div>
 	<div id="submit_question_btn">
-		<button name="question" type="submit" class="btn">好的，发出去</button>
+		<button name="answer" type="submit" class="btn">回答</button>
 	</div>
 </form>
 </div>

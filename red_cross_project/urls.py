@@ -15,8 +15,8 @@ from .views import SignupView
 urlpatterns = patterns("",
     url(r"^$", direct_to_template, {"template": "homepage.html"}, name="home"),
     url(r"^admin/", include(admin.site.urls)),
-    url(r"^account/signup/$", SignupView.as_view(), name="account_signup"),
-    url(r"^account/", include("account.urls")),
+    url(r"^accounts/signup/$", SignupView.as_view(), name="account_signup"),
+    url(r"^accounts/", include("account.urls")),
     url(r"^bbs/", include("red_cross_project.clean_bbs.urls")),
 
 )

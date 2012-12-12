@@ -1,13 +1,19 @@
 {% extends "site_base.html" %}
 
 {% block extra_head %}
-<link href="{STATIC_URL}/css/bbs_layout.css" rel="stylesheet" type="text/css" media="screen">
+<link href="{{STATIC_URL}}css/bbs_layout.css" rel="stylesheet" type="text/css" media="screen">
 {% endblock %}
 
+{{debug}
+
 {% block body %}
+	<div>
+		<a href="/">返回主页</a>
+	</div>
 	{% include "search_bar.html" %}
 	{% include "filters.html" %}
-	<a href="{% url "post" %}" class="btn">发表新问题</a>
+	<a href="{% url post_question %}" class="btn">提出新问题</a>
+	<span>(问题总数: {{ total_set_size }})</span>
 	{% include "question_list.html" %}
 	{% include "right_sidebar.html" %}
 {% endblock %}
