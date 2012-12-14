@@ -8,11 +8,38 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from red_cross_project.clean_bbs.models import Question,Answer
 from red_cross_project.clean_bbs.forms import *
 
+from red_cross_project.woosh_searcher import Searcher
 
 def bbs(request, **kwargs):
+	total_set = []
+	debug = []
 	#get the question list to render
-	#TODO:deal with the filter
-	total_set = Question.objects.all()
+	if request.method == 'GET':
+		if 'search' in request.GET:
+			search_form = SearchForm(request.GET)
+			if search_form.is_valid():
+				cd = search_form.cleaned_data
+				keywords = cd['key_words']
+				if keywords is None:
+					total_set = Question.objects.order_by('-update_time')
+				else:
+					#start to search for questions and answers using whoosh 
+					searcher = Searcher()
+					matching_ids = searcher.search(unicode(keywords),u'question')
+					debug.append(unicode(keywords))
+					debug.append(matching_ids)
+					#matching_ids += s.search(unicode(keywords),u'answer')
+					for id in matching_ids:
+						try:
+							total_set.append(Question.objects.get(id=id))
+						except:
+							raise Exception('This question does not exist anymore')
+			else:
+				total_set = Question.objects.order_by('-update_time')
+		else: #no form submited
+			total_set = Question.objects.order_by('-update_time')
+
+
 	total_set_size = len(total_set)
 	total_page_number = total_set_size/12+1
 
@@ -26,7 +53,7 @@ def bbs(request, **kwargs):
 		#by default there are 20 pages in one page
 		start_idx = 12 * ( page_index - 1) 
 		#get the result_set with page nubmer limiting
-		questions = Question.objects.order_by('update_time')[ start_idx : start_idx + 12 ]
+		questions = total_set[ start_idx : start_idx + 12 ]
 
 	#prepare the context
 	context = {'questions':questions}
@@ -42,6 +69,8 @@ def bbs(request, **kwargs):
 		context['next_index'] = page_index+1
 	context['total_set_size'] = total_set_size
 	context['total_page_number'] = total_page_number
+
+	#context['debug'] = debug
 
 	return render_to_response("bbs.html",context)
 
@@ -64,6 +93,11 @@ def single(request, **kwargs):
 				answer.author = request.user
 				answer.title = u'回复：'	+ question.title
 				answer.save()
+
+				# add the question to IR index
+				searcher = Searcher()
+				searcher.add_documents(answer.id,answer.title,answer.content,u'answer')
+
 				try:
 					question = Question.objects.get(id=question_id)
 					context['question'] = question
@@ -96,6 +130,10 @@ def post(request):
 				question=form.save(commit=False)	
 				question.author = request.user
 				question.save()
+
+				# add the question to IR index
+				searcher = Searcher()
+				searcher.add_documents(question.id,question.title,question.content,u'question')
 				return HttpResponseRedirect('/bbs/')
 			else:# form is not valid
 				#TODO: various errors

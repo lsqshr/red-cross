@@ -14,5 +14,4 @@ class SignupView(account.views.SignupView):
     def create_profile(self, form):
         profile = self.created_user.profile
         profile.birthdate = form.cleaned_data["birthdate"]
-        profile.profile_image = form.cleaned_data["profile_img"]
         profile.save()
