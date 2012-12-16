@@ -7,3 +7,6 @@ import account.forms
 class SignupForm(account.forms.SignupForm):
 
     birthdate = forms.DateField(widget=SelectDateWidget(years=range(1910, 1991)))
+
+class SearchForm(forms.Form):
+    key_words = forms.CharField(max_length = 50, required = True)

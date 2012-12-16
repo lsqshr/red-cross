@@ -32,7 +32,6 @@ class Profile(models.Model):
 	gender = models.CharField(default='F',max_length=1)
 	enrolled = models.NullBooleanField(default=False, null=True)
 	profile_img = models.ImageField(upload_to = upload_to)
-	models.DateTimeField(default=datetime.datetime.now())
+	register_time = models.DateTimeField(default=datetime.datetime.now())
 	user = models.ForeignKey(User,related_name = 'user_profile')
-
-
+	role = models.CharField(default='P',max_length=1) #P:patient/D:doctor, it can only changed by administrator

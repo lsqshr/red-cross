@@ -1,0 +1,21 @@
+{% extends "site_base.html" %}
+{% block extra_head %}
+<link href="{{STATIC_URL}}css/bbs_layout.css" rel="stylesheet" type="text/css" media="screen">
+{% endblock %}
+
+{% block body %}
+<div class="nav_link">
+	<a href="/bbs/">返回</a>
+</div>
+
+<div class="single_form">
+<form action="" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div>标题： {{form.title}}</div>
+	<div>内容： {{form.content}}</div>
+	<div id="submit_post_btn">
+		<button name="save" type="submit" class="btn">好的，发出去</button>
+	</div>
+</form>
+</div>
+{% endblock %}

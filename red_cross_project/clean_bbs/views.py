@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from red_cross_project.clean_bbs.models import Question,Answer
 from red_cross_project.clean_bbs.forms import *
+from red_cross_project.forms import SearchForm
 
 from red_cross_project.woosh_searcher import Searcher
 
@@ -28,7 +29,6 @@ def bbs(request, **kwargs):
 					matching_ids = searcher.search(unicode(keywords),u'question')
 					debug.append(unicode(keywords))
 					debug.append(matching_ids)
-					#matching_ids += s.search(unicode(keywords),u'answer')
 					for id in matching_ids:
 						try:
 							total_set.append(Question.objects.get(id=id))

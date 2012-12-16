@@ -27,7 +27,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Shanghai"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -139,6 +139,7 @@ INSTALLED_APPS = [
     "red_cross_project",
     "red_cross_project.profiles",
     "red_cross_project.clean_bbs",
+    "red_cross_project.clean_post",
 ]
 
 # A sample logging configuration. The only tangible logging

@@ -24,5 +24,3 @@ class FilterForm(forms.Form):
     time_choices = (('all','全部'),((),()))
     time = forms.ChoiceField()
 
-class SearchForm(forms.Form):
-    key_words = forms.CharField(max_length = 50, required = True)

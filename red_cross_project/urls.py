@@ -18,7 +18,7 @@ urlpatterns = patterns("",
     url(r"^accounts/signup/$", SignupView.as_view(), name="account_signup"),
     url(r"^accounts/", include("account.urls")),
     url(r"^bbs/", include("red_cross_project.clean_bbs.urls")),
-
+    url(r"^post/", include("red_cross_project.clean_post.urls")),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
