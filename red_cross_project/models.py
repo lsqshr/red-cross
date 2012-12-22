@@ -23,7 +23,7 @@ class UserStatics(models.Model):
 	user = models.ForeignKey(User)
 
 
-class Profile(models.Model):
+class ExtraProfile(models.Model):
 
 	def upload_to(instance, filename):
 	    return 'images/%s/%s' % (instance.user.username, filename)
