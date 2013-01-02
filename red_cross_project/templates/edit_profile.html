@@ -8,13 +8,23 @@
 	<a href="/">返回首页</a>
 </div>
 
+<div>{{ message }}</div>
+
+<div>{{debug}}</div>
+
 <div class="single_form">
 <form action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
-	<div>： {{form.title}}</div>
-	<div>内容： {{form.content}}</div>
+	<div>年龄:{{form.age}}{{form.age.errors}}</div>
+	<div>性别:{{form.gender}}{{form.gender.errors}}</div>
+	<div>是否已为本中心患者:{{form.enrolled}}</div>
+	<div>肖像:{{form.profile_img}}
+		<img src="{{request.user.user_profile.profile_img.url}}"/>
+		{{form.profile_img.errors}}
+	</div> 
+
 	<div id="submit_question_btn">
-		<button name="question" type="submit" class="btn">好的，发出去</button>
+		<button name="save" type="submit" class="btn">保存</button>
 	</div>
 </form>
 </div>

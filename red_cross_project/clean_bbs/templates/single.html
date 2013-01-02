@@ -1,4 +1,7 @@
 {% extends "site_base.html" %}
+
+{% load i18n %}
+
 {% block extra_head %}
 <link href="{{STATIC_URL}}css/bbs_layout.css" rel="stylesheet" type="text/css" media="screen">
 {% endblock %}
@@ -16,19 +19,25 @@
 	{{question.content}}
 </div>
 
-{% for answer in question.answers.all %}
+{% for answer in question.sorted_answers %}
 	<div>
 		{{ answer.content }}
 	</div>
 {% endfor %}
 
-<div class="single_form">
-<form action="" method="post" enctype="multipart/form-data">
-	{% csrf_token %}
-	<div>您的回答： {{form.content}}</div>
-	<div id="submit_question_btn">
-		<button name="answer" type="submit" class="btn">回答</button>
+{% if authenticated %}
+	<div class="single_form">
+		<form action="" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div>您的回答： {{form.content}}</div>
+			<div id="submit_question_btn">
+				<button name="answer" type="submit" class="btn">回答</button>
+			</div>
+		</form>
 	</div>
-</form>
-</div>
+{% else %}
+	<div class="auth_notify_div">
+	    <p>您尚未登录.</p> <p>您可以 <a href="{% url account_login %}" class="btn">登录</a> or <a href="{% url account_signup %}" class="btn primary">注册为用户</a> 开始回答问答区问题 </p>
+	</div>
+{% endif %}
 {% endblock %}

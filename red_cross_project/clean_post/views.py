@@ -29,7 +29,6 @@ def posts(request, **kwargs):
 					matching_ids = searcher.search(unicode(keywords),u'post')
 					debug.append(unicode(keywords))
 					debug.append(matching_ids)
-					#matching_ids += s.search(unicode(keywords),u'answer')
 					for id in matching_ids:
 						try:
 							total_set.append(Post.objects.get(id=id))
@@ -72,9 +71,7 @@ def posts(request, **kwargs):
 	context['total_set_size'] = total_set_size
 	context['total_page_number'] = total_page_number
 
-	#context['debug'] = debug
-
-	return render_to_response("posts.html",context)
+	return render_to_response("posts.html",context,context_instance = RequestContext(request, {}))
 
 def single(request, **kwargs):
 	context = {}
@@ -106,18 +103,22 @@ def single(request, **kwargs):
 					context['form'] = ReplyForm() 
 				except:
 					raise Exception("Can not find post with id"+str(post_id))
-				return render_to_response("single.html",context,\
+				return render_to_response("single_post.html",context,\
 					context_instance = RequestContext(request,{}))
 			else:#the form is invalid
 				errors.append(u"不好意思，您的回答字数不符合标准。")
 				context['errors'] = errors
-				return render_to_response("single.html", context,\
+				return render_to_response("single_post.html", context,\
 					context_instance = RequestContext(request, {}))
 		else:#
 			pass
 	else:#no form submited
 		context['form'] = ReplyForm(request.POST)
-		return render_to_response("single.html", context,\
+		if request.user.is_authenticated() :
+			context['authenticated'] = True 
+		else:
+			context['authenticated'] = False
+		return render_to_response("single_post.html", context,\
 			context_instance = RequestContext(request, {}))
 
 

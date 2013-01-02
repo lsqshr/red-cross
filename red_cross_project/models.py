@@ -1,3 +1,4 @@
+#coding=utf-8
 #models.py: this is the global models for the whole system
 #author: SIQI
 from django.db import models
@@ -12,7 +13,7 @@ class Thread(models.Model):
 	update_time = models.DateTimeField(default=datetime.datetime.now())
 	post_time = models.DateTimeField(default=datetime.datetime.now())
 	stamps = models.ManyToManyField(Stamp, null=True , related_name = 'Threads')
-	author = models.ForeignKey(User)
+	author = models.ForeignKey(User,related_name = 'threads')
 
 class UserStatics(models.Model):
 	thanks_amount = models.IntegerField(default=0)
@@ -26,12 +27,15 @@ class UserStatics(models.Model):
 class ExtraProfile(models.Model):
 
 	def upload_to(instance, filename):
-	    return 'images/%s/%s' % (instance.user.username, filename)
+	    return 'images'
+
+	gender_choices = (('F','女'),('M','男'),)
+	role_choices = (('D','医生'),('P','患者'),)
 
 	age = models.IntegerField(null=True)		
-	gender = models.CharField(default='F',max_length=1)
+	gender = models.CharField(default='F',max_length=1, choices=gender_choices)
 	enrolled = models.NullBooleanField(default=False, null=True)
-	profile_img = models.ImageField(upload_to = upload_to)
+	profile_img = models.ImageField(upload_to = upload_to, null=True)
 	register_time = models.DateTimeField(default=datetime.datetime.now())
-	user = models.ForeignKey(User,related_name = 'user_profile')
-	role = models.CharField(default='P',max_length=1) #P:patient/D:doctor, it can only changed by administrator
+	user = models.OneToOneField(User,related_name = 'user_profile')
+	role = models.CharField(default='P',max_length=1,choices=role_choices) #P:patient/D:doctor, it can only changed by administrator

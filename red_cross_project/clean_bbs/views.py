@@ -56,7 +56,9 @@ def bbs(request, **kwargs):
 		questions = total_set[ start_idx : start_idx + 12 ]
 
 	#prepare the context
-	context = {'questions':questions}
+	context = {}
+	context['request'] = request
+	context['questions'] = questions
 	context['search_form'] =  SearchForm()
 	context['cur_index'] = page_index
 	if page_index is 1:
@@ -72,7 +74,8 @@ def bbs(request, **kwargs):
 
 	#context['debug'] = debug
 
-	return render_to_response("bbs.html",context)
+	return render_to_response("bbs.html",context,context_instance = RequestContext(request, {}))
+
 
 def single(request, **kwargs):
 	context = {}
@@ -85,7 +88,8 @@ def single(request, **kwargs):
 	except:
 		raise Exception("Can not find question with id"+str(question_id))
 	if request.method=='POST':
-		if 'answer' in request.POST:
+		if 'answer' in request.POST and request.user.is_authenticated():
+			context['authenticated'] = True
 			form = AnswerForm(request.POST)
 			if form.is_valid():
 				answer = form.save(commit=False)
@@ -103,7 +107,8 @@ def single(request, **kwargs):
 					context['question'] = question
 					context['form'] = AnswerForm() 
 				except:
-					raise Exception("Can not find question with id"+str(question_id))
+					raise Exception("Can not find question with id "+str(question_id))
+				context['answers'] = question.sorted_answers()
 				return render_to_response("single.html",context,\
 					context_instance = RequestContext(request,{}))
 			else:#the form is invalid
@@ -112,9 +117,14 @@ def single(request, **kwargs):
 				return render_to_response("single.html", context,\
 					context_instance = RequestContext(request, {}))
 		else:#
-			pass
+			HttpResponseRedirect('account_login')
 	else:#no form submited
 		context['form'] = AnswerForm(request.POST)
+		if request.user.is_authenticated() :
+			context['authenticated'] = True 
+		else:
+			context['authenticated'] = False
+
 		return render_to_response("single.html", context,\
 			context_instance = RequestContext(request, {}))
 

@@ -23,7 +23,7 @@
     
     {% if user.is_authenticated %}
         {% url what_next as what_next_url %}
-        <p class="what_next">{% blocktrans %} 您好已注册的朋友 <a href="{{ what_next_url }}" class="btn primary large">带我进入问答区</a>{% endblocktrans %}</p>
+        <p class="what_next">{% blocktrans %} 您好已注册的朋友 <a href="/bbs/" class="btn primary large">带我进入问答区</a>{% endblocktrans %}</p>
     {% else %}
         {% url account_login as login_url %}
         {% url account_signup as signup_url %}
