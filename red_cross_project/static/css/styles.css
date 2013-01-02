@@ -11,3 +11,8 @@
 .auth_notify_div{
 	margin_top:10%;
 }
+
+.profile_img {
+	height: 150px;
+	width: 150px;
+}

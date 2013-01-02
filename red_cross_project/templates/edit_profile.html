@@ -19,7 +19,7 @@
 	<div>性别:{{form.gender}}{{form.gender.errors}}</div>
 	<div>是否已为本中心患者:{{form.enrolled}}</div>
 	<div>肖像:{{form.profile_img}}
-		<img src="{{request.user.user_profile.profile_img.url}}"/>
+		<img class="profile_img" src="{{request.user.user_profile.profile_img.url}}"/>
 		{{form.profile_img.errors}}
 	</div> 
 

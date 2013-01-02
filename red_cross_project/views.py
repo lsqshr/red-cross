@@ -32,7 +32,13 @@ def profile_settings(request, **kwargs):
 
 	context = {}
 	ex_profile = request.user.user_profile
-	
+
+	#if this user has not set user profile ever before
+	if ex_profile is None:
+		ex_profile = ExtraProfile()
+		ex_profile.use = request.user
+		ex_profile.save()
+
 	if request.method == 'POST':
 		if 'save' in request.POST:
 			form = ProfileForm(request.POST,request.FILES)
