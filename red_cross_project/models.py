@@ -34,8 +34,9 @@ class ExtraProfile(models.Model):
 
 	age = models.IntegerField(null=True)		
 	gender = models.CharField(default='F',max_length=1, choices=gender_choices)
-	enrolled = models.NullBooleanField(default=False, null=True)
+	enrolled = models.NullBooleanField(default=False)
 	profile_img = models.ImageField(upload_to = upload_to, null=True)
 	register_time = models.DateTimeField(default=datetime.datetime.now())
-	user = models.OneToOneField(User,related_name = 'user_profile')
+	user = models.OneToOneField(User, related_name = 'user_profile')
 	role = models.CharField(default='P',max_length=1,choices=role_choices) #P:patient/D:doctor, it can only changed by administrator
+	position = models.CharField(default='医师',max_length=10,null=True)

@@ -20,4 +20,9 @@ class ProfileForm(forms.ModelForm):
 
 	class Meta:
 		model = ExtraProfile
-		exclude = ('role', 'register_time','user')
+		exclude = ('role', 'register_time','user','position')
+
+	def __init__(self,*args,**kwargs):
+		super(ProfileForm, self).__init__(*args, **kwargs)
+		self.fields['profile_img'].required = False
+

@@ -39,7 +39,6 @@ def posts(request, **kwargs):
 		else: #no form submited
 			total_set = Post.objects.order_by('-update_time')
 
-
 	total_set_size = len(total_set)
 	total_page_number = total_set_size/12+1
 
