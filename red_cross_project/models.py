@@ -40,3 +40,7 @@ class ExtraProfile(models.Model):
 	user = models.OneToOneField(User, related_name = 'user_profile')
 	role = models.CharField(default='P',max_length=1,choices=role_choices) #P:patient/D:doctor, it can only changed by administrator
 	position = models.CharField(default='医师',max_length=10,null=True)
+
+	def __unicode__(self):
+		return self.user.username
+

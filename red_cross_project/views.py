@@ -31,13 +31,12 @@ class SignupView(account.views.SignupView):
 def profile_settings(request, **kwargs):
 
 	context = {}
-	#if this user has not set user profile ever before
-	if request.user.user_profile is None:
+	if hasattr(request.user,'user_profile'): 
+		ex_profile = request.user.user_profile
+	else:
 		ex_profile = ExtraProfile()
 		ex_profile.user = request.user
 		ex_profile.save()
-	else:
-		ex_profile = request.user.user_profile
 
 	if request.method == 'POST':
 		if 'save' in request.POST:
