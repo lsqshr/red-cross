@@ -5,13 +5,13 @@
 
 {% block body %}
 <div class="nav_link">
-	<a href="/bbs/">返回</a>
+	<a href="/post/">返回</a>
 </div>
 
 <div>
 	{{post.title}} 
-	<a>修改文章内容</a>
-	<a>删除本文章</a>
+	<a href="/post/edit/{{post.id}}">修改文章内容</a>
+	<a href="/post/delete/{{post.id}}">删除本文章</a>
 </div>
 
 <div>

@@ -3,7 +3,10 @@
 	<!--table for rendering a thread-->
 	<div class="thread">
 		<div>
-				{{ post.author.username }},{{ post.author.user_profile.role}}
+				{{ post.author.username }}
+				{% if post.author.user_profile.role == 'D'%}
+					<b>医生<b>
+				{% endif %}
 				<a href="/post/{{post.id}}">{{ post.title }}
 					{{ question.update_time}}</a>
 		</div>
