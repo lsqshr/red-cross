@@ -1,15 +1,41 @@
 <ul>
 	{% for question in questions %}
+	<!--table for rendering a thread-->
+	<div class="thread">
+		<div>
+				{{ question.author.username }},{{ question.author.user_profile.role}}
+				<a href="/bbs/{{question.id}}">{{ question.title }}
+					当前答案数({{question.answers.all|length}})</a>{{ question.update_time}}
+		</div>
+		<div>
+			<div >
+				{% if question.author.user_profile and question.author.user_profile.profile_img %}
+					<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
+				{% else %}
+					{% if request.user.user_profile.gender == 'M' %}
+						<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+					{% else %}
+						<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+					{% endif %}
+				{% endif %}
+				<span class="content">
+					{{ question.content }}
+				</span>
+						
+			</div>
+		</div>
+	</div>
+	<!--	
 		<div>
 			<div>
 				{{ question.title }}
 			</div>
 			<div>
 				<a href="{{question.id}}">{{ question.content }}</a>
-				{{ question.update_time}}
 				来自 {{question.author.username}}
 			<div>
 		</div>
+	-->
 	{% endfor %}
 </ul>
 <div class="thread_page_index">

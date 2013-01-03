@@ -9,8 +9,10 @@ import account.views
 from .forms import SignupForm
 from red_cross_project.forms import ProfileForm
 from red_cross_project.models import ExtraProfile
+from red_cross_project.settings import MEDIA_ROOT
 
 import datetime
+import os
 
 class SignupView(account.views.SignupView):
     
@@ -48,6 +50,13 @@ def profile_settings(request, **kwargs):
 				ex_profile.age = profile.age
 				ex_profile.enrolled = profile.enrolled
 				if profile.profile_img:
+					#if the user uploads a new profile image
+					#if the user has set a profile image before
+					#find the previous one's path and delete it from the file-system(if file exist)
+					if ex_profile.profile_img:
+						path = os.path.join(MEDIA_ROOT,ex_profile.profile_img.name)
+						if os.path.exists(path) :
+							os.remove(path)
 					ex_profile.profile_img = profile.profile_img
 				ex_profile.save()
 

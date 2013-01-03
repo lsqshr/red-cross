@@ -21,6 +21,9 @@ class ProfileForm(forms.ModelForm):
 	class Meta:
 		model = ExtraProfile
 		exclude = ('role', 'register_time','user','position')
+		widget = {
+			'profile_img':forms.FileInput,
+		}
 
 	def __init__(self,*args,**kwargs):
 		super(ProfileForm, self).__init__(*args, **kwargs)

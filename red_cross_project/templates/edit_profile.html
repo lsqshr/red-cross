@@ -20,10 +20,18 @@
 	{% if request.user.user_profile.role == 'P' %}
 		<div>是否已为本中心患者:{{form.enrolled}}</div>
 	{% endif %}
-	<div>肖像:{{form.profile_img}}
+	<div>肖像:
 		{% if request.user.user_profile and request.user.user_profile.profile_img %}
-		<img class="profile_img" src="{{request.user.user_profile.profile_img.url}}"/>
+			<img class="profile_img" src="{{request.user.user_profile.profile_img.url}}"/>
+		{% else %}
+			{% if request.user.user_profile.gender == 'M' %}
+				<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+			{% else %}
+				<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+			{% endif %}
 		{% endif %}
+		<br/>
+		{{form.profile_img}}
 		{{form.profile_img.errors}}
 	</div> 
 

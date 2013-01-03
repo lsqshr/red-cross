@@ -1,14 +1,28 @@
 <ul>
 	{% for post in posts %}
+	<!--table for rendering a thread-->
+	<div class="thread">
 		<div>
-			<div>
-				{{ post.title }}
+				{{ post.author.username }},{{ post.author.user_profile.role}}
+				<a href="/post/{{post.id}}">{{ post.title }}
+					{{ question.update_time}}</a>
+		</div>
+		<div>
+			<div >
+				{% if post.author.user_profile and post.author.user_profile.profile_img %}
+					<img class="profile_img" src="{{post.author.user_profile.profile_img.url}}"/>
+				{% else %}
+					{% if request.user.user_profile.gender == 'M' %}
+						<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+					{% else %}
+						<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+					{% endif %}
+				{% endif %}
+				<span class="content">
+					{{ post.content }}
+				</span>
+						
 			</div>
-			<div>
-				<a href="/post/{{post.id}}/">{{ post.content }}</a>
-				{{ post.update_time}}
-				来自 {{post.author.username}}
-			<div>
 		</div>
 	{% endfor %}
 </ul>
