@@ -130,7 +130,7 @@ def single(request, **kwargs):
 
 
 @login_required
-def post(request):
+def post(request,**kwargs):
 	context = {}	
 	errors = []
 	if request.method == "POST":
@@ -154,4 +154,53 @@ def post(request):
 		else:pass
 	else:
 		context['form'] = QuestionForm(request.POST)
+		return render_to_response('post.html',context, context_instance=RequestContext(request, {}))
+
+#login_required
+def delete(request,**kwargs):
+	#find the previous question with question_id
+	try:
+		question = Question.objects.get(id=kwargs['question_id'])
+	except:
+		raise Http404
+	#if the user is the author of this quesiton	
+	if request.user.id == question.author.id:
+		question.delete()
+		#delete the IR index
+		searcher = Searcher()
+		searcher.delete_document(question.id,'question')
+	return HttpResponseRedirect('/bbs/')
+
+@login_required
+def edit(request,**kwargs):
+	context = {}	
+	errors = []
+	#find the previous question with question_id
+	try:
+		question = Question.objects.get(id=kwargs['question_id'])
+	except:
+		raise Http404
+	if request.method == "POST":
+		if 'question' in request.POST:
+			form = QuestionForm(request.POST)
+			if form.is_valid():
+				new_question = form.save(commit=False)	
+				question.title = new_question.title
+				question.content = new_question.content
+				question.save()
+
+				searcher = Searcher()
+				#update the index 
+				searcher.update_document(question.id,question.title,question.content,u'question')
+				return HttpResponseRedirect('/bbs/')
+			else:# form is not valid
+				#TODO: various errors
+				errors.append(u'对不起,您发表的问题字数超啦')
+				context['form'] = form
+				context['errors'] = errors
+				return render_to_response('post.html',context,context_instance=RequestContext(request, {}))
+		else:pass
+	else:
+		#fill the form
+		context['form'] = QuestionForm(instance=question)
 		return render_to_response('post.html',context, context_instance=RequestContext(request, {}))

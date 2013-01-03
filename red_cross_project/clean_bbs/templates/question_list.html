@@ -3,7 +3,12 @@
 	<!--table for rendering a thread-->
 	<div class="thread">
 		<div>
-				{{ question.author.username }},{{ question.author.user_profile.role}}
+				{{ question.author.username }}
+				{% if question.author.user_profile.role == 'D'%}
+					<b>医生</b>
+				{% else %}
+				{% endif %}
+
 				<a href="/bbs/{{question.id}}">{{ question.title }}
 					当前答案数({{question.answers.all|length}})</a>{{ question.update_time}}
 		</div>

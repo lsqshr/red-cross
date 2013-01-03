@@ -13,6 +13,10 @@
 
 <div>
 	{{question.title}}
+	{% if request.user.username == question.author.username %}
+	<a href="{% url edit_question question.id %}">修改内容</a>
+	<a href="{% url delete_question question.id %}">删除本条问题</a>
+	{% endif %}
 </div>
 
 <div>

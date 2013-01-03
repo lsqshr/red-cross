@@ -1,0 +1,21 @@
+#submit_question_btn{
+	float:right;
+}
+
+.single_form{
+	float:left;
+	margin-left:10%;
+	width:20%;
+}
+
+.auth_notify_div{
+	margin_top:10%;
+}
+
+.thread .content {
+}
+
+.thread .statstic {
+	float:left;
+	width:50px;
+}
