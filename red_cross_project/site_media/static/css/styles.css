@@ -30,3 +30,11 @@ h1{
 	height: 50px;
 	width: 50px;
 }
+
+body{
+	background-color:#FCDFFF;
+}
+
+.header{
+	height:10%;
+}

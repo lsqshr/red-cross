@@ -17,16 +17,10 @@
 	width: 50px;
 }
 
-#homepage{
-	background-color:red;
+body{
+	background-color:#FCDFFF;
 }
 
-h1{
-	color:red;
-}
-.topbar-inner, .topbar .fill {
-    background-color: red;
-    background-image: -webkit-linear-gradient(top, #333, #FF4242);
-    background-image: -o-linear-gradient(top, #333, #FF4242);
-    background-image: linear-gradient(top, #333, #FF4242);
+.header{
+	height:10%;
 }
