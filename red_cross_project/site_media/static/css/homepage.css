@@ -1,0 +1,48 @@
+#content{
+	width:100%;
+	margin:suto;
+	border:1px solid blue;
+}
+
+#fast_entries{
+	width:35%;
+	float:left;
+	height:100%;
+	border:1px dotted #660099;
+}
+
+#entry1{
+	width:100%;
+	height:30%;
+	border:1px dotted #660099;
+}
+#entry2{
+	width:100%;
+	height:30%;
+	margin-top:2%;
+	border:1px dotted black;
+}
+
+#entry3{
+	width:100%;
+	height:30%;
+	border:1px dotted black;
+	margin-top:2%;
+}
+
+#introduction{
+	width:60%;
+	height:30%;
+	float:right;
+	border:1px solid black;
+	margin:auto;
+}
+
+#header marquee{
+	height:10%;
+	margin-top:1%;
+}
+
+#header marquee{
+	line-height: 25px;
+}
