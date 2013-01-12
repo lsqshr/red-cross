@@ -11,8 +11,8 @@ class Searcher(object):
 
 	def create_schema(self):
 		analyzer = RegexAnalyzer(ur"([\u4e00-\u9fa5])|(\w+(\.?\w+)*)")  
-
-		schema = Schema(id=NUMERIC(stored=True),\
+		#index_id is formated as 'question14'
+		schema = Schema(index_id = ID(unique=True),id=NUMERIC(stored=True),\
 			title=TEXT(stored=True), content=TEXT(analyzer=analyzer), type=TEXT)
 		if not os.path.exists("index"):
 		    os.mkdir("index")
@@ -24,11 +24,12 @@ class Searcher(object):
 		writer = self.ix.writer()
 		questions = Question.objects.all()
 		for question in questions:
-			writer.add_document(id=question.id,title=question.title,\
+			writer.add_document(index_id=u'question'+unicode(str(question.id)),\
+			 id=question.id,title=question.title,\
 			 content=question.content,type=u'question')
 		answers = Answer.objects.all()
 		for answer in answers:
-			writer.add_document(id=answer.id,title=answer.title,\
+			writer.add_document(index_id=u'answer'+unicode(str(answer.id)),id=answer.id,title=answer.title,\
 			 content=answer.content,type=u'answer')
 
 		writer.commit()
@@ -40,7 +41,7 @@ class Searcher(object):
 		if self.ix is None:
 			self.ix = self._open_index()
 		writer = self.ix.writer()
-		writer.add_document(id=id,title=title, content=content,type=type)
+		writer.add_document(index_id=type+str(id),id=id,title=title, content=content,type=type)
 		writer.commit(merge = True, optimize = True)
 
 	def _open_index(self):
@@ -53,6 +54,19 @@ class Searcher(object):
 		return parser.parse(keywords+u" AND (type:"+type+")")
 		#return parser.parse(keywords)
 
+	def delete_document(self,id,type):
+		if self.ix is None:
+			self.ix = self._open_index()
+		writer = self.ix.writer()
+		writer.delete_by_term('id', unicode(type+str(id)))
+		writer.commit(merge = True, optimize = True)
+
+	def update_document(self,id,title,content,type):
+		if self.ix is None:
+			self.ix = self._open_index()
+		writer = self.ix.writer()
+		writer.update_document(index_id=type+str(id),id=id,title=title, content=content,type=type)
+		writer.commit(merge = True, optimize = True)
 
 	def search(self,keywords,type):
 		'''

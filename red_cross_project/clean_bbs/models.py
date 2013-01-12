@@ -5,6 +5,10 @@ from red_cross_project.models import Thread
 class Question(Thread):
 	content = models.CharField(max_length = 2000)
 	
+	def sorted_answers(self):
+		return self.answers.order_by('author__user_profile__role',
+                                '-post_time')
+
 	def __unicode__(self):	
 		return self.title
 		

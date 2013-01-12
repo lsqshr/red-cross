@@ -1,0 +1,36 @@
+{% extends "site_base.html" %}
+{% block extra_head %}
+<link href="{{STATIC_URL}}css/bbs_layout.css" rel="stylesheet" type="text/css" media="screen">
+{% endblock %}
+
+{% block body %}
+<div class="nav_link">
+	<a href="/post/">返回</a>
+</div>
+
+<div>
+	{{post.title}} 
+	<a href="/post/edit/{{post.id}}">修改文章内容</a>
+	<a href="/post/delete/{{post.id}}">删除本文章</a>
+</div>
+
+<div>
+	{{post.content}}
+</div>
+
+{% for reply in post.Replies.all %}
+	<div>
+		{{ reply.content }}
+	</div>
+{% endfor %}
+
+<div class="single_form">
+<form action="" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div>您的评论： {{form.content}}</div>
+	<div id="submit_post_btn">
+		<button name="reply" type="submit" class="btn">回答</button>
+	</div>
+</form>
+</div>
+{% endblock %}

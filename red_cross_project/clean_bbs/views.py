@@ -56,7 +56,9 @@ def bbs(request, **kwargs):
 		questions = total_set[ start_idx : start_idx + 12 ]
 
 	#prepare the context
-	context = {'questions':questions}
+	context = {}
+	context['request'] = request
+	context['questions'] = questions
 	context['search_form'] =  SearchForm()
 	context['cur_index'] = page_index
 	if page_index is 1:
@@ -72,7 +74,8 @@ def bbs(request, **kwargs):
 
 	#context['debug'] = debug
 
-	return render_to_response("bbs.html",context)
+	return render_to_response("bbs.html",context,context_instance = RequestContext(request, {}))
+
 
 def single(request, **kwargs):
 	context = {}
@@ -85,7 +88,8 @@ def single(request, **kwargs):
 	except:
 		raise Exception("Can not find question with id"+str(question_id))
 	if request.method=='POST':
-		if 'answer' in request.POST:
+		if 'answer' in request.POST and request.user.is_authenticated():
+			context['authenticated'] = True
 			form = AnswerForm(request.POST)
 			if form.is_valid():
 				answer = form.save(commit=False)
@@ -103,7 +107,8 @@ def single(request, **kwargs):
 					context['question'] = question
 					context['form'] = AnswerForm() 
 				except:
-					raise Exception("Can not find question with id"+str(question_id))
+					raise Exception("Can not find question with id "+str(question_id))
+				context['answers'] = question.sorted_answers()
 				return render_to_response("single.html",context,\
 					context_instance = RequestContext(request,{}))
 			else:#the form is invalid
@@ -112,15 +117,20 @@ def single(request, **kwargs):
 				return render_to_response("single.html", context,\
 					context_instance = RequestContext(request, {}))
 		else:#
-			pass
+			HttpResponseRedirect('account_login')
 	else:#no form submited
 		context['form'] = AnswerForm(request.POST)
+		if request.user.is_authenticated() :
+			context['authenticated'] = True 
+		else:
+			context['authenticated'] = False
+
 		return render_to_response("single.html", context,\
 			context_instance = RequestContext(request, {}))
 
 
 @login_required
-def post(request):
+def post(request,**kwargs):
 	context = {}	
 	errors = []
 	if request.method == "POST":
@@ -144,4 +154,53 @@ def post(request):
 		else:pass
 	else:
 		context['form'] = QuestionForm(request.POST)
+		return render_to_response('post.html',context, context_instance=RequestContext(request, {}))
+
+#login_required
+def delete(request,**kwargs):
+	#find the previous question with question_id
+	try:
+		question = Question.objects.get(id=kwargs['question_id'])
+	except:
+		raise Http404
+	#if the user is the author of this quesiton	
+	if request.user.id == question.author.id:
+		question.delete()
+		#delete the IR index
+		searcher = Searcher()
+		searcher.delete_document(question.id,'question')
+	return HttpResponseRedirect('/bbs/')
+
+@login_required
+def edit(request,**kwargs):
+	context = {}	
+	errors = []
+	#find the previous question with question_id
+	try:
+		question = Question.objects.get(id=kwargs['question_id'])
+	except:
+		raise Http404
+	if request.method == "POST":
+		if 'question' in request.POST:
+			form = QuestionForm(request.POST)
+			if form.is_valid():
+				new_question = form.save(commit=False)	
+				question.title = new_question.title
+				question.content = new_question.content
+				question.save()
+
+				searcher = Searcher()
+				#update the index 
+				searcher.update_document(question.id,question.title,question.content,u'question')
+				return HttpResponseRedirect('/bbs/')
+			else:# form is not valid
+				#TODO: various errors
+				errors.append(u'对不起,您发表的问题字数超啦')
+				context['form'] = form
+				context['errors'] = errors
+				return render_to_response('post.html',context,context_instance=RequestContext(request, {}))
+		else:pass
+	else:
+		#fill the form
+		context['form'] = QuestionForm(instance=question)
 		return render_to_response('post.html',context, context_instance=RequestContext(request, {}))

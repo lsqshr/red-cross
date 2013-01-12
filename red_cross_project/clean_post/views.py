@@ -29,7 +29,6 @@ def posts(request, **kwargs):
 					matching_ids = searcher.search(unicode(keywords),u'post')
 					debug.append(unicode(keywords))
 					debug.append(matching_ids)
-					#matching_ids += s.search(unicode(keywords),u'answer')
 					for id in matching_ids:
 						try:
 							total_set.append(Post.objects.get(id=id))
@@ -39,7 +38,6 @@ def posts(request, **kwargs):
 				total_set = Post.objects.order_by('-update_time')
 		else: #no form submited
 			total_set = Post.objects.order_by('-update_time')
-
 
 	total_set_size = len(total_set)
 	total_page_number = total_set_size/12+1
@@ -72,9 +70,7 @@ def posts(request, **kwargs):
 	context['total_set_size'] = total_set_size
 	context['total_page_number'] = total_page_number
 
-	#context['debug'] = debug
-
-	return render_to_response("posts.html",context)
+	return render_to_response("posts.html",context,context_instance = RequestContext(request, {}))
 
 def single(request, **kwargs):
 	context = {}
@@ -106,27 +102,31 @@ def single(request, **kwargs):
 					context['form'] = ReplyForm() 
 				except:
 					raise Exception("Can not find post with id"+str(post_id))
-				return render_to_response("single.html",context,\
+				return render_to_response("single_post.html",context,\
 					context_instance = RequestContext(request,{}))
 			else:#the form is invalid
 				errors.append(u"不好意思，您的回答字数不符合标准。")
 				context['errors'] = errors
-				return render_to_response("single.html", context,\
+				return render_to_response("single_post.html", context,\
 					context_instance = RequestContext(request, {}))
 		else:#
 			pass
 	else:#no form submited
 		context['form'] = ReplyForm(request.POST)
-		return render_to_response("single.html", context,\
+		if request.user.is_authenticated() :
+			context['authenticated'] = True 
+		else:
+			context['authenticated'] = False
+		return render_to_response("single_post.html", context,\
 			context_instance = RequestContext(request, {}))
 
 
 @login_required
-def edit(request, **kwargs):
+def new(request, **kwargs):
 	context = {}	
 	errors = []
 	if request.method == "POST":
-		if 'save' in request.POST:
+		if 'post' in request.POST:
 			form = PostForm(request.POST)
 			if form.is_valid():
 				post=form.save(commit=False)	
@@ -146,4 +146,54 @@ def edit(request, **kwargs):
 			raise Exception("not good")
 	else:
 		context['form'] = PostForm(request.POST)
+		return render_to_response('edit_post.html',context, context_instance=RequestContext(request, {}))
+
+#login_required
+def delete(request,**kwargs):
+	#find the previous post with post_id
+	try:
+		post = Post.objects.get(id=kwargs['post_id'])
+	except:
+		raise Http404
+	#if the user is the author of this quesiton	
+	if request.user.id == post.author.id:
+		post.delete()
+		#delete the IR index
+		searcher = Searcher()
+		searcher.delete_document(post.id,'post')
+	return HttpResponseRedirect('/bbs/')
+
+@login_required
+def edit(request,**kwargs):
+	context = {}	
+	errors = []
+	#find the previous post with post_id
+	try:
+		post = Post.objects.get(id=kwargs['post_id'])
+	except:
+		raise Http404
+	if request.method == "POST":
+		if 'post' in request.POST:
+			form = PostForm(request.POST)
+			if form.is_valid():
+				new_post = form.save(commit=False)	
+				post.title = new_post.title
+				post.content = new_post.content
+				post.save()
+
+				searcher = Searcher()
+				#update the index 
+				searcher.update_document(post.id,post.title,post.content,u'post')
+				return HttpResponseRedirect('/bbs/')
+			else:# form is not valid
+				#TODO: various errors
+				errors.append(u'对不起,您发表的问题字数超啦')
+				context['form'] = form
+				context['errors'] = errors
+				return render_to_response('edit_post.html',context,context_instance=RequestContext(request, {}))
+		else:
+			raise Http404	
+	else:
+		#fill the form
+		context['form'] = PostForm(instance=post)
 		return render_to_response('edit_post.html',context, context_instance=RequestContext(request, {}))

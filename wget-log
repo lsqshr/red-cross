@@ -1,0 +1,25 @@
+--2013-01-02 12:53:57--  (尝试次数： 8)  https://toolbelt.heroku.com/apt/release.key
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|50.16.215.104|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|174.129.22.35|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|184.73.171.204|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|50.16.215.67|:443... 失败：连接超时。
+重试中。
+
+--2013-01-02 12:58:17--  (尝试次数： 9)  https://toolbelt.heroku.com/apt/release.key
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|50.16.215.104|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|174.129.22.35|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|184.73.171.204|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|50.16.215.67|:443... 失败：连接超时。
+重试中。
+
+--2013-01-02 13:02:38--  (尝试次数：10)  https://toolbelt.heroku.com/apt/release.key
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|50.16.215.104|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|174.129.22.35|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|184.73.171.204|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|50.16.215.67|:443... 失败：连接超时。
+重试中。
+
+--2013-01-02 13:07:01--  (尝试次数：11)  https://toolbelt.heroku.com/apt/release.key
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|50.16.215.104|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|174.129.22.35|:443... 失败：连接超时。
+正在连接 toolbelt.heroku.com (toolbelt.heroku.com)|184.73.171.204|:443... 

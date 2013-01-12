@@ -14,4 +14,5 @@ pinax-theme-bootstrap-account==1.0b2
 pinax-utils==1.0b1.dev3
 pytz==2012d
 wsgiref==0.1.2
-
+dj-database-url==0.2.0
+psycopg2
