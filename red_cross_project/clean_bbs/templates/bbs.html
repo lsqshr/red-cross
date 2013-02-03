@@ -1,22 +1,25 @@
 {% extends "site_base.html" %}
 
 {% block extra_head %}
-<link href="{{STATIC_URL}}css/bbs_layout.css" rel="stylesheet" type="text/css" media="screen">
 {% endblock %}
 
-{{debug}
+{{debug}}
 
-{% block body %}
-	<div>
-		<a href="/">返回主页</a>
+{% block content %}
+
+<div>
+	<div style="margin-top:4%;">
+	<div id="main">
+		<div>
+			<a href="/">返回主页</a>
+		</div>
+		{% include "search_bar.html" %}
+		{% include "filters.html" %}
+		<a href="{% url post_question %}" class="btn">提出新问题</a>
+		<span>(问题总数: {{ total_set_size }})</span>
+		{% include "question_list.html" %}
 	</div>
-	{% for d in debug %}
-		{{d}}
-	{% endfor %}
-	{% include "search_bar.html" %}
-	{% include "filters.html" %}
-	<a href="{% url post_question %}" class="btn">提出新问题</a>
-	<span>(问题总数: {{ total_set_size }})</span>
-	{% include "question_list.html" %}
-	{% include "right_sidebar.html" %}
+	<div id="sidebar">{% include "right_sidebar.html" %}</div>
+	<div class="clear"></div>
+</div>
 {% endblock %}

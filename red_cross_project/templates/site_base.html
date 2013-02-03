@@ -1,19 +1,100 @@
-{% extends "theme_base.html" %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-{% load metron_tags %}
-{% load i18n %}
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
+<head>
+<title>哈尔滨市红十字中心医院 生殖中心 官方网站</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="title" content="Web site" />
+<meta name="description" content="Site description here" />
+<meta name="keywords" content="keywords here" />
+<meta name="language" content="en" />
+<meta name="subject" content="Site subject here" />
+<meta name="robots" content="All" />
+<meta name="copyright" content="Your company" />
+<meta name="abstract" content="Site description here" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<link id="theme" rel="stylesheet" type="text/css"
+	href="{{STATIC_URL}}/css/style.css" title="theme" />
+<script type="text/javascript" language="javascript"
+	src="{{STATIC_URL}}js/addon.js"></script>
+<script type="text/javascript" language="javascript"
+	src="{{STATIC_URL}}js/custom.js"></script>
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+	<!-- top wrapper -->
+	<div id="topWrapper">
+		<div id="topBannerWrapper" style="background-image:url({{ STATIC_URL }}images/css/topBannerWrapper-bg.jpg);">
+			<div id="topBanner" style="background-image:url({{ STATIC_URL }}images/css/topBanner.jpg);">
+				<div id="hmenuWrapper">
+					<div id="hmenu">
+						<ul>
+							<li id="current" style="border: none"><a href="#"
+								shape="rect"/>主页</li>
+							<li><a href="{% url bbs %}" shape="rect"/>问答区</li>
+							<li><a href="{% url posts %}" shape="rect"/>健康贴士发布区</li>
+							<li><a href="#" shape="rect"/>就诊导航</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% block image_slider %}{% endblock %}
 
-{% block extra_head_base %}
-    {% block extra_head %}
-    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
-    {% endblock %}
-{% endblock %}
+		<div id="wrapper">
+			<div id="container">
+				<!--  content -->
+				<div id="content">
+				{% block content %}{% endblock %}
+				<!-- end content -->
+					<div class="clear" style="height: 40px"></div>
+				</div>
+			</div>
+		</div>
 
-{% block footer %}
-    {% include "_footer.html" %}
-{% endblock %}
-
-{% block extra_body_base %}
-    {% analytics %}
-    {% block extra_body %}{% endblock %}
-{% endblock %}
+		<div id="bottomWrapper">
+			<div id="footer">
+				<div class="footer-one-third">
+					<h2>Company</h2>
+					<ul>
+						<li><a href="#" shape="rect">About the hospital</li>
+						<li><a href="#" shape="rect">Shen me shi shiguanyinge</a></li>
+						<li><a href="#" shape="rect">Contact</a></li>
+						<li><a href="#" shape="rect">Partners</a></li>
+						<li><a href="#" shape="rect">Links</a></li>
+					</ul>
+				</div>
+				<div class="footer-one-third">
+					<h2>Products</h2>
+					<ul>
+						<li><a href="#" shape="rect">Products</a></li>
+						<li><a href="#" shape="rect">Services</a></li>
+						<li><a href="#" shape="rect">Clients</a></li>
+						<li><a href="#" shape="rect">Testimonials</a></li>
+						<li><a href="#" shape="rect">Links</a></li>
+					</ul>
+				</div>
+				<div class="footer-one-third footer-last">
+					<h2>Blog archives</h2>
+					<ul>
+						<li><a href="#" shape="rect">Lorem ipsum</a></li>
+						<li><a href="#" shape="rect">Dolor sit</a></li>
+						<li><a href="#" shape="rect">Turpis egestas</a></li>
+						<li><a href="#" shape="rect">Commodo</a></li>
+						<li><a href="#" shape="rect">Eget non</a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="bottom-links">
+				<div style="padding-top: 20px">
+					<!-- 
+DO NOT REMOVE OR MODIFY THE FOOTER LINK BELOW.
+If you want to remove this link please make a 10 dollars donation at www.dotemplate.com
+-->
+					<a href="http://www.dotemplate.com" shape="rect">Templates</a>
+					maker
+				</div>
+			</div>
+		</div>
+</body>
+</html>

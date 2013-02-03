@@ -13,7 +13,7 @@ from .views import SignupView
 
 
 urlpatterns = patterns("",
-    url(r"^$", direct_to_template, {"template": "homepage.html"}, name="home"),
+    url(r"^$", direct_to_template, {"template": "homepage2.html"}, name="home"),
     url(r"^admin/", include(admin.site.urls)),
     url(r"^accounts/signup/$", SignupView.as_view(), name="account_signup"),
     url(r"^accounts/profile_settings/$", 'red_cross_project.views.profile_settings', name="profile_settings"),
