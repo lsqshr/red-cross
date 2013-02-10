@@ -2,45 +2,50 @@
 	{% for question in questions %}
 	<!--table for rendering a thread-->
 	<div class="thread">
-		<div>
-				{{ question.author.username }}
-				{% if question.author.user_profile.role == 'D'%}
-					<b>医生</b>
-				{% else %}
-				{% endif %}
-
-				<a href="/bbs/{{question.id}}">{{ question.title }}
-					当前答案数({{question.answers.all|length}})</a>{{ question.update_time}}
-		</div>
-		<div>
-			<div >
-				{% if question.author.user_profile and question.author.user_profile.profile_img %}
-					<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
-				{% else %}
-					{% if request.user.user_profile.gender == 'M' %}
-						<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+		<table>
+			<tr class="thread_tr1">
+				<td class="thread_td1">
+					<span style="margin:5%;font-size:1.2em;">
+						{{ question.author.username }}
+						{% if question.author.user_profile.role == 'D'%}
+						<b>医生</b>
+						{% else %}
+						{% endif %}
+					</span>
+				</td>
+				<td class="thread_td2">
+					<span style="margin:5%;font-size:1.5em;">
+						<a href="/bbs/{{question.id}}">{{ question.title }}
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td class="thread_td1">
+					{% if question.author.user_profile and question.author.user_profile.profile_img %}
+						<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
 					{% else %}
-						<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+						{% if request.user.user_profile.gender == 'M' %}
+							<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+						{% else %}
+							<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+						{% endif %}
 					{% endif %}
-				{% endif %}
-				<span class="content">
-					{{ question.content }}
-				</span>
-						
-			</div>
-		</div>
+				</td>
+				<td class="thread_td2">
+					<span class="content">
+						{{ question.content }}
+					</span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+				</td>
+				<td>
+					当前答案数({{question.answers.all|length}})&nbsp&nbsp&nbsp&nbsp{{ question.update_time}}
+				</td>
+			</tr>
+		</table>
 	</div>
-	<!--	
-		<div>
-			<div>
-				{{ question.title }}
-			</div>
-			<div>
-				<a href="{{question.id}}">{{ question.content }}</a>
-				来自 {{question.author.username}}
-			<div>
-		</div>
-	-->
 	{% endfor %}
 </ul>
 <div class="thread_page_index">

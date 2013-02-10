@@ -8,15 +8,16 @@ from red_cross_project.clean_bbs.models import Question,Answer
 
 class Searcher(object):
 	ix = None
+	index_dir = "red_cross_project/site_media/index"
 
 	def create_schema(self):
 		analyzer = RegexAnalyzer(ur"([\u4e00-\u9fa5])|(\w+(\.?\w+)*)")  
 		#index_id is formated as 'question14'
 		schema = Schema(index_id = ID(unique=True),id=NUMERIC(stored=True),\
 			title=TEXT(stored=True), content=TEXT(analyzer=analyzer), type=TEXT)
-		if not os.path.exists("index"):
-		    os.mkdir("index")
-		self.ix = create_in("index", schema)
+		if not os.path.exists(self.index_dir):
+		    os.mkdir(self.index_dir)
+		self.ix = create_in(self.index_dir, schema)
 
 	def add_all_questions_and_answers(self):
 		if not self.ix:
@@ -45,7 +46,7 @@ class Searcher(object):
 		writer.commit(merge = True, optimize = True)
 
 	def _open_index(self):
-		return open_dir("index")
+		return open_dir(self.index_dir)
 
 	def _prepare_query(self,keywords,type):
 		if self.ix is None:
