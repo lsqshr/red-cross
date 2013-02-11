@@ -5,21 +5,17 @@
 		<table>
 			<tr class="thread_tr1">
 				<td class="thread_td1">
-					<span style="margin:5%;font-size:1.2em;">
+					<span style="margin:5%;margin-left:10%;font-size:1.2em;color:white;">
 						{{ question.author.username }}
-						{% if question.author.user_profile.role == 'D'%}
-						<b>医生</b>
-						{% else %}
-						{% endif %}
 					</span>
 				</td>
 				<td class="thread_td2">
 					<span style="margin:5%;font-size:1.5em;">
-						<a href="/bbs/{{question.id}}">{{ question.title }}
+						<a href="/bbs/{{question.id}}" style="color:white;" class="thread_title">{{ question.title }}</a>
 					</span>
 				</td>
 			</tr>
-			<tr>
+			<tr class="thread_tr2">
 				<td class="thread_td1">
 					{% if question.author.user_profile and question.author.user_profile.profile_img %}
 						<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
@@ -29,6 +25,10 @@
 						{% else %}
 							<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
 						{% endif %}
+					{% endif %}
+					{% if question.author.user_profile.role == 'D'%}
+					<b>医生</bbs>
+					{% else %}
 					{% endif %}
 				</td>
 				<td class="thread_td2">
@@ -41,7 +41,7 @@
 				<td>
 				</td>
 				<td>
-					<span style="color:#00FFFF;font-size:1.15em;">当前答案数({{question.answers.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ question.update_time}}</span>
+					<span style="color:#D8D8D8;font-size:1.15em;float:right;margin-right:2%;">当前答案数({{question.answers.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ question.update_time}}</span>
 				</td>
 			</tr>
 		</table>
