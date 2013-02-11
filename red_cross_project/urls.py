@@ -1,21 +1,17 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.conf.urls.static import static
-
-from red_cross_project.clean_bbs import urls
-
 from django.views.generic.simple import direct_to_template
-
 from django.contrib import admin
 admin.autodiscover()
 
-from .views import SignupView
-
+from red_cross_project.clean_bbs import urls
 
 urlpatterns = patterns("",
     url(r"^$", direct_to_template, {"template": "homepage2.html"}, name="home"),
     url(r"^admin/", include(admin.site.urls)),
-    url(r"^accounts/signup/$", SignupView.as_view(), name="account_signup"),
+    #url(r"^accounts/signup/$",'red_cross_project.views.signup' , name="account_signup"),
+    url(r"^accounts/login/$",'red_cross_project.views.login', name='login'),
     url(r"^accounts/profile_settings/$", 'red_cross_project.views.profile_settings', name="profile_settings"),
     url(r"^accounts/", include("account.urls")),
     url(r"^bbs/", include("red_cross_project.clean_bbs.urls")),

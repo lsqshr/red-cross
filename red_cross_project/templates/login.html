@@ -1,0 +1,42 @@
+{% extends "site_base.html" %}
+
+{% block extra_head %}
+{% endblock %}
+
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block head_title %}{% trans "登录" %}{% endblock %}
+
+{% block content %}
+     <!-- WRAPPER -->
+    <div id="wrapper">
+        <div id="shell" class="container">
+            <div id="content" class="pad">
+                <form action="" method="post">
+                {% csrf_token %}
+                <p>登录到已注册的账户, 或者<a href="/accounts/signup/">注册成为新用户</a></p>
+                {% for error in errors %}
+                    {{error}}
+                {% endfor %}
+                    <p><span class="field big">
+                        <label for="username">用户名:</label>
+                        {{form.username}}
+                    </p>
+                    <p>
+                        <span class="field password big">
+                        <label for="username">密码:</label>
+                        {{form.password}} 
+                            <a href="/accounts/password/reset/">忘记密码?</a>
+                        </span>
+                    </p>
+                    <div id="form_submit">
+                        <input type="submit" name="login_submit" value="登录" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END WRAPPER -->
+{% endblock %}

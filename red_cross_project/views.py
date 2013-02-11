@@ -1,13 +1,14 @@
 #coding=utf-8
 
 from django.template.context import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import auth
 
 import account.views
 
 from .forms import SignupForm
-from red_cross_project.forms import ProfileForm
+from red_cross_project.forms import ProfileForm,LoginForm
 from red_cross_project.models import ExtraProfile
 from red_cross_project.settings import MEDIA_ROOT
 
@@ -24,10 +25,39 @@ class SignupView(account.views.SignupView):
     
     def create_profile(self, form):
         profile = self.created_user.profile
-        profile.birthdate = form.cleaned_data["birthdate"]
         profile.save()
         ex_profile = ExtraProfile(register_time=datetime.datetime.now(),user=self.created_user)
         ex_profile.save()
+
+def login(request):
+	errors=[]
+	if request.method == "POST":
+		if 'login_submit' in request.POST : #user submited the form to login
+			form = LoginForm(request.POST)
+			if form.is_valid():
+				cd = form.cleaned_data
+				username=cd['username']
+				password=cd['password']
+				user=auth.authenticate(username=username,password=password)
+				if user is not None and user.is_active:
+				    #Correct Password, and User is marked "active"
+				    auth.login(request, user)
+				    #Redirect to a success page.
+				    return HttpResponseRedirect("/") 
+				else:
+				    errors.append('用户名或者密码有误')
+				    return render_to_response('login.html',{'form':form,\
+				                                            'page_name':'Log-in','errors':errors},\
+				                                            context_instance=RequestContext(request,{}))
+			else:# form is not valid
+				errors.append('请提供格式正确的用户名或者密码')
+				return render_to_response('login.html',{'login_form':LoginForm,\
+				                                        'page_name':'Log-in','errors':errors},\
+				                                        context_instance=RequestContext(request,{}))
+	else:
+		form = LoginForm()
+	return render_to_response('login.html', {'form':form,'page_name':'Log-in'},\
+	     context_instance=RequestContext(request, {}))
 
 @login_required
 def profile_settings(request, **kwargs):
