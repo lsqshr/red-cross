@@ -9,13 +9,12 @@
 }
 
 .auth_notify_div{
-	margin_top:10%;
+	margin-top:10%;
+}
+
+.thread {
+	margin-bottom: 5%;
 }
 
 .thread .content {
-}
-
-.thread .statstic {
-	float:left;
-	width:50px;
 }

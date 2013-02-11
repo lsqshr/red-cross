@@ -19,13 +19,6 @@ html {
 }
 
 
-body {
-	padding:0;
-	margin :0;
-	display:table; 
-	width:100%;	
-}
-
 #wrapper {
 	margin:0 auto ;
 	width:100%;
@@ -485,3 +478,6 @@ a img {
 	width:100px;	
 	height:100px;
 }
+
+INPUT.hintTextbox       { color: #888; }
+INPUT.hintTextboxActive { color: #000; }
