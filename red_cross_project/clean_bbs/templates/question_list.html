@@ -18,40 +18,40 @@
 			<tr class="thread_tr2">
 				<td class="thread_td1">
 					{% if question.author.user_profile and question.author.user_profile.profile_img %}
-						<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
+					<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
 					{% else %}
-						{% if request.user.user_profile.gender == 'M' %}
-							<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
-						{% else %}
-							<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
-						{% endif %}
+					{% if request.user.user_profile.gender == 'M' %}
+					<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+					{% else %}
+					<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+					{% endif %}
 					{% endif %}
 					{% if question.author.user_profile.role == 'D'%}
 					<b>医生</bbs>
-					{% else %}
-					{% endif %}
-				</td>
-				<td class="thread_td2">
-					<span class="content">
-						{{ question.content }}
-					</span>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				</td>
-				<td>
-					<span style="color:#D8D8D8;font-size:1.15em;float:right;margin-right:2%;">当前答案数({{question.answers.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ question.update_time}}</span>
-				</td>
-			</tr>
-		</table>
+						{% else %}
+						{% endif %}
+					</td>
+					<td class="thread_td2">
+						<span class="content">
+							{{ question.content }}
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						<span style="color:#D8D8D8;font-size:1.15em;float:right;margin-right:2%;">当前答案数({{question.answers.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ question.update_time}}</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+		{% endfor %}
+	</ul>
+	<div class="thread_page_index">
+		<a href="{% url bbs_page_index last_index %}">上一页</a>
+		第{{cur_index}}页
+		<a href="{% url bbs_page_index next_index %}">下一页</a>|
+		<a href="{% url bbs%}">首页</a>
+		<a href="{% url bbs_page_index total_page_number %}">末页</a> <span>(共 {{ total_page_number }} 页)<span>
 	</div>
-	{% endfor %}
-</ul>
-<div class="thread_page_index">
-	<a href="{% url bbs_page_index last_index %}">上一页</a>
-	第{{cur_index}}页
-	<a href="{% url bbs_page_index next_index %}">下一页</a>|
-	<a href="{% url bbs%}">首页</a>
-	<a href="{% url bbs_page_index total_page_number %}">末页</a> <span>(共 {{ total_page_number }} 页)<span>
-</div>
