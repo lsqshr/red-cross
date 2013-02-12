@@ -8,10 +8,18 @@
 			<a href="/">返回主页</a>
 		</div>
 		<div style="margin-left:5%;margin-top:2%;margin-bottom:5%;display:inline;">
-			{% include "search_bar.html" %}
-			{% include "filters.html" %}
-			<a href="{% url post_question %}" class="btn">提出新问题</a>
-				(问题总数: {{ total_set_size }})
+			<table>
+				<tr>
+					<td>
+						{% include "search_bar.html" %}
+						{% include "filters.html" %}
+					</td>
+					<td>
+						<a href="{% url post_question %}" class="btn">提出新问题</a>
+							(问题总数: {{ total_set_size }})
+					</td>
+				</tr>
+			</table>
 		</div>
 		{% include "question_list.html" %}
 	</div>
