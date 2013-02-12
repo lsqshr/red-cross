@@ -6,10 +6,7 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    
     user = models.OneToOneField(User, related_name="profile")
-    birthdate = models.DateField(null=True, blank=True)
-
 
 @receiver(post_save, sender=User)
 def user_post_save(sender, **kwargs):
