@@ -29,6 +29,10 @@ class SignupView(account.views.SignupView):
         ex_profile = ExtraProfile(register_time=datetime.datetime.now(),user=self.created_user)
         ex_profile.save()
 
+def homepage(request):
+	return render_to_response('homepage2.html',{'page_name':'homepage'},\
+		context_instance=RequestContext(request,{}))
+
 def login(request):
 	errors=[]
 	if request.method == "POST":

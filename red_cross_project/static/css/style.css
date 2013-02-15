@@ -99,7 +99,7 @@ body {
 	height:2em;
 	line-height:2em;
 	text-align:center;
-	padding:0 20px;
+	margin:0 20px;
 }
 
 
@@ -118,7 +118,7 @@ body {
 
 #hmenu ul li a:active {
 	text-decoration:none;
-}
+	}
 
 
 #hmenu li#current a {

@@ -73,6 +73,7 @@ def bbs(request, **kwargs):
 	context['total_page_number'] = total_page_number
 
 	#context['debug'] = debug
+	context['page_name'] = 'bbs'
 
 	return render_to_response("bbs.html",context,context_instance = RequestContext(request, {}))
 
@@ -81,6 +82,7 @@ def single(request, **kwargs):
 	context = {}
 	errors = []
 
+	context['page_name'] = 'bbs'
 	question_id = kwargs['question_id']
 	try:
 		question = Question.objects.get(id=question_id)
