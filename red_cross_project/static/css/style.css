@@ -33,7 +33,6 @@ body {
 	background: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%);
 	background: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 );
-
 }
 
 #wrapper {
@@ -313,7 +312,7 @@ body {
 
 
 body {
-	color:#444444;
+	color:#0B610B;
 	font-family:Arial,Helvetica,sans-serif,"宋体";
 	font-size: 13px;
 	font-style: normal;
@@ -547,7 +546,12 @@ INPUT.hintTextboxActive { color: #000; }
 }
 
 #hos_description {
+	font-size: 1.2em;
+}
 
+#hos_description span {
+	color:#170B3B;
+	font-weight: bold;
 }
 
 .nav_link {
@@ -559,3 +563,12 @@ INPUT.hintTextboxActive { color: #000; }
 	font-size:1.2em;
 	margin-left:3%;
 }
+
+#faq {
+	font-size: 1.2em;
+}
+
+#faq h3{
+	color:#0B3B0B;
+}
+

@@ -16,6 +16,7 @@ urlpatterns = patterns("",
     url(r"^accounts/", include("account.urls")),
     url(r"^bbs/", include("red_cross_project.clean_bbs.urls")),
     url(r"^post/", include("red_cross_project.clean_post.urls")),
+    url(r"^guide/",'red_cross_project.views.guide',name="guide"),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
