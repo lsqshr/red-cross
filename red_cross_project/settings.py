@@ -140,6 +140,10 @@ INSTALLED_APPS = [
     "red_cross_project.profiles",
     "red_cross_project.clean_bbs",
     "red_cross_project.clean_post",
+
+    #for dynamically changing database schema
+    #"south",
+    "cloudinary",
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -176,6 +180,13 @@ FIXTURE_DIRS = [
 ]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Cloudinary settings
+CLOUDINARY = {
+  'cloud_name': 'hnjpzpz5b',  
+  'api_key': '373389365126731',  
+  'api_secret': '7VuDudv7aecVNAirHADzdsuXnzE',  
+}
 
 ACCOUNT_OPEN_SIGNUP = True
 ACCOUNT_USE_OPENID = False

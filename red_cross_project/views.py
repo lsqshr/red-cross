@@ -4,7 +4,7 @@ from django.template.context import RequestContext
 from django.shortcuts import render_to_response,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-
+import cloudinary, cloudinary.uploader, cloudinary.forms
 import account.views
 
 from .forms import SignupForm
@@ -77,12 +77,14 @@ def profile_settings(request, **kwargs):
 	if request.method == 'POST':
 		if 'save' in request.POST:
 			form = ProfileForm(request.POST,request.FILES)
+			cloudinary.forms.cl_init_js_callbacks(form, request)
 			if form.is_valid():
 				profile = form.save(commit=False)
 				#find user's previously stored profile info and overwrite it
 				ex_profile.gender = profile.gender
 				ex_profile.age = profile.age
 				ex_profile.enrolled = profile.enrolled
+				ex_profile.profile_img = profile.profile_img
 				'''
 				if profile.profile_img:
 					#if the user uploads a new profile image

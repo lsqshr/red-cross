@@ -18,7 +18,8 @@
 			<tr class="thread_tr2">
 				<td class="thread_td1">
 					{% if question.author.user_profile and question.author.user_profile.profile_img %}
-					<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
+						<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
+						{% cloudinary image width=100 height=100 crop="fill" public_id="question.author"%}  
 					{% else %}
 					{% if request.user.user_profile.gender == 'M' %}
 					<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
