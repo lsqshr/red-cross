@@ -141,9 +141,8 @@ INSTALLED_APPS = [
     "red_cross_project.clean_bbs",
     "red_cross_project.clean_post",
 
-    #for dynamically changing database schema
-    #"south",
-    "cloudinary",
+    #storage backends
+    "storages",
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -197,3 +196,12 @@ ACCOUNT_UNIQUE_EMAIL = EMAIL_CONFIRMATION_UNIQUE_EMAIL = False
 ACCOUNT_LOGIN_REDIRECT_URL = "home"
 ACCOUNT_LOGOUT_REDIRECT_URL = "home"
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = 'AKIAIR3KX4VMXNL6XDTQ'    #Your Amazon Web Services access key, as a string.
+
+AWS_SECRET_ACCESS_KEY = 'pl93zMF6CMQyqazgzUuLcvxpWij+lMB1Zoq7DoKc' #Your Amazon Web Services secret access key, as a string.
+
+AWS_STORAGE_BUCKET_NAME = 'hszzxyyszzx' #Your Amazon Web Services storage bucket name, as a string.
+
+#AWS_CALLING_FORMAT #(Subdomain hardcoded in s3boto)
