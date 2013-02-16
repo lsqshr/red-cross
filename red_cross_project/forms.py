@@ -1,3 +1,5 @@
+#coding=utf8
+
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 from django.contrib.auth.models import User
@@ -5,6 +7,7 @@ from django.contrib.auth.models import User
 from red_cross_project.models import ExtraProfile
 from red_cross_project.profiles.models import Profile
 import cloudinary.forms
+
 import account.forms
 
 
@@ -19,17 +22,9 @@ class SearchForm(forms.Form):
     key_words = forms.CharField(max_length = 50, required = True)
 
 
-class ProfileForm(forms.ModelForm):
+class ProfileForm(forms.Form):
 
-	img = cloudinary.forms.CloudinaryJsFileField()
-
-	class Meta:
-		model = ExtraProfile
-		exclude = ('role', 'register_time','user','position','profile_img')
-		widget = {
-			'profile_img':forms.FileInput,
-		}
-
-	def __init__(self,*args,**kwargs):
-		super(ProfileForm, self).__init__(*args, **kwargs)
-
+	age = forms.IntegerField()
+	gender = forms.ChoiceField(choices = (('F','女'),('M','男'),))
+	enrolled = forms.NullBooleanField()
+	profile_img = cloudinary.forms.CloudinaryJsFileField()

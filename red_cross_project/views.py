@@ -78,12 +78,12 @@ def profile_settings(request, **kwargs):
 	if request.method == 'POST':
 		if 'save' in request.POST:
 			if form.is_valid():
-				profile = form.save(commit=False)
+				cd = form.cleaned_data
 				#find user's previously stored profile info and overwrite it
-				ex_profile.gender = profile.gender
-				ex_profile.age = profile.age
-				ex_profile.enrolled = profile.enrolled
-				ex_profile.profile_img = form.cleaned_data['img']  
+				ex_profile.gender = cd['gender']
+				ex_profile.age = cd['age']
+				ex_profile.enrolled = cd['enrolled']
+				ex_profile.profile_img = cd['profile_img']  
 				ex_profile.save()
 				context['message'] = '您的个人信息已经被成功更新' 
 			else:
@@ -91,7 +91,11 @@ def profile_settings(request, **kwargs):
 				
 			context['form'] = form
 	else:
-		form = ProfileForm(instance = ex_profile)
+		form = ProfileForm()
+		form.gender = ex_profile.gender
+		form.age = ex_profile.age
+		form.enrolled = ex_profile.enrolled
+		form.profile_img = ex_profile.profile_img
 		context['form'] = form
 
 	return render_to_response('edit_profile.html', context, \
