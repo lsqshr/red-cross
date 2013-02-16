@@ -1,6 +1,11 @@
+{% load cloudinary %}
+{% load staticfiles %}
+{% cloudinary_includes %} 
+
 {% extends "site_base.html" %}
 {% block extra_head %}
 <link href="{{STATIC_URL}}css/site_layout.css" rel="stylesheet" type="text/css" media="screen">
+<script src="{% static "js/jquery.js" %}" type="text/javascript"></script>
 {% endblock %}
 
 {% block body %}
@@ -13,31 +18,31 @@
 <div>{{debug}}</div>
 
 <div class="single_form">
-<form action="" method="post" enctype="multipart/form-data">
-	{% csrf_token %}
-	<div>年龄:{{form.age}}{{form.age.errors}}</div>
-	<div>性别:{{form.gender}}{{form.gender.errors}}</div>
-	{% if request.user.user_profile.role == 'P' %}
+	<form action="" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div>年龄:{{form.age}}{{form.age.errors}}</div>
+		<div>性别:{{form.gender}}{{form.gender.errors}}</div>
+		{% if request.user.user_profile.role == 'P' %}
 		<div>是否已为本中心患者:{{form.enrolled}}</div>
-	{% endif %}
-	<div>肖像:
-		{% if request.user.user_profile and request.user.user_profile.profile_img %}
-			<img class="profile_img" src="{{request.user.user_profile.profile_img.url}}"/>
-		{% else %}
-			{% if request.user.user_profile.gender == 'M' %}
-				<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
-			{% else %}
-				<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
-			{% endif %}
 		{% endif %}
-		<br/>
-		{{form.profile_img}}
-		{{form.profile_img.errors}}
-	</div> 
+		<div>肖像:
+			{% if request.user.user_profile and request.user.user_profile.profile_img %}
+			<img class="profile_img" src="{{request.user.user_profile.profile_img.url}}"/>
+			{% else %}
+			{% if request.user.user_profile.gender == 'M' %}
+			<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+			{% else %}
+			<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+			{% endif %}
+			{% endif %}
+			<br/>
+			{{ form.profile_img }}
+			{{ form.profile_img.errors }}
+		</div> 
 
-	<div id="submit_question_btn">
-		<button name="save" type="submit" class="btn">保存</button>
-	</div>
-</form>
+		<div id="submit_question_btn">
+			<button name="save" type="submit" class="btn">保存</button>
+		</div>
+	</form>
 </div>
 {% endblock %}

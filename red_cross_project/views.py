@@ -83,6 +83,7 @@ def profile_settings(request, **kwargs):
 				ex_profile.gender = profile.gender
 				ex_profile.age = profile.age
 				ex_profile.enrolled = profile.enrolled
+				'''
 				if profile.profile_img:
 					#if the user uploads a new profile image
 					#if the user has set a profile image before
@@ -92,6 +93,7 @@ def profile_settings(request, **kwargs):
 						if os.path.exists(path) :
 							os.remove(path)
 					ex_profile.profile_img = profile.profile_img
+					'''
 				ex_profile.save()
 
 				context['message'] = '您的个人信息已经被成功更新' 

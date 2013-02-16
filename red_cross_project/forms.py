@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from red_cross_project.models import ExtraProfile
 from red_cross_project.profiles.models import Profile
-
+import cloudinary
 import account.forms
 
 
@@ -20,6 +20,8 @@ class SearchForm(forms.Form):
 
 
 class ProfileForm(forms.ModelForm):
+
+	profile_img = cloudinary.forms.CloudinaryJsFileField()
 
 	class Meta:
 		model = ExtraProfile

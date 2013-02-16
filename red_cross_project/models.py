@@ -3,6 +3,7 @@
 #author: SIQI
 from django.db import models
 from django.contrib.auth.models import User
+import cloudinary
 import datetime
 
 class Stamp(models.Model):
@@ -23,7 +24,6 @@ class UserStatics(models.Model):
 	answser_amount = models.IntegerField(default=0)
 	user = models.ForeignKey(User)
 
-
 class ExtraProfile(models.Model):
 	'''
 	def upload_to(instance, filename):
@@ -40,7 +40,9 @@ class ExtraProfile(models.Model):
 	enrolled = models.NullBooleanField(default=False)
 	register_time = models.DateTimeField(default=datetime.datetime.now())
 	user = models.OneToOneField(User, related_name = 'user_profile')
-	profile_img = models.ImageField(upload_to = 'images/%Y/%m/%d', null=True)
+	#profile_img = models.ImageField(upload_to = 'images/%Y/%m/%d', null=True)
+	#heroku does not work for file uploading so I imported one addon called cloudinary.
+	profile_img = cloudinary.models.CloudinaryField('image') 
 	role = models.CharField(default='P',max_length=1,choices=role_choices) #P:patient/D:doctor, it can only changed by administrator
 	position = models.CharField(default='医师',max_length=10,null=True)
 
