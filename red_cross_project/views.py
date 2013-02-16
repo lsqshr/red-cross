@@ -1,5 +1,4 @@
 #coding=utf-8
-
 from django.template.context import RequestContext
 from django.shortcuts import render_to_response,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -84,7 +83,6 @@ def profile_settings(request, **kwargs):
 				ex_profile.enrolled = profile.enrolled
 				ex_profile.profile_img = profile.profile_img
 				ex_profile.save()
-
 				context['message'] = '您的个人信息已经被成功更新' 
 			else:
 				context['message'] = '对不起,由于格式问题您的信息没有被成功更新'
