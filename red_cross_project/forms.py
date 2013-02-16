@@ -21,16 +21,15 @@ class SearchForm(forms.Form):
 
 class ProfileForm(forms.ModelForm):
 
-	profile_img = cloudinary.forms.CloudinaryField()
+	img = cloudinary.forms.CloudinaryJsFileField()
 
 	class Meta:
 		model = ExtraProfile
-		exclude = ('role', 'register_time','user','position')
+		exclude = ('role', 'register_time','user','position','profile_img')
 		widget = {
 			'profile_img':forms.FileInput,
 		}
 
 	def __init__(self,*args,**kwargs):
 		super(ProfileForm, self).__init__(*args, **kwargs)
-		self.fields['profile_img'].required = False
 

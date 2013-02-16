@@ -6,10 +6,6 @@ from django.contrib.auth.models import User
 import cloudinary.models
 import datetime
 
-class MyCloudinaryField(cloudinary.models.CloudinaryField):
-    def upload_options(self, model_instance):
-       return {'public_id': model_instance.user.id}
-
 class Stamp(models.Model):
 	name = models.CharField(max_length=15)
 
@@ -46,7 +42,7 @@ class ExtraProfile(models.Model):
 	user = models.OneToOneField(User, related_name = 'user_profile')
 	#profile_img = models.ImageField(upload_to = 'images/%Y/%m/%d', null=True)
 	#heroku does not work for file uploading so I imported one addon called cloudinary.
-	profile_img = MyCloudinaryField('image',null=True) 
+	profile_img = cloudinary.models.CloudinaryField('image',null=True) 
 	role = models.CharField(default='P',max_length=1,choices=role_choices) #P:patient/D:doctor, it can only changed by administrator
 	position = models.CharField(default='医师',max_length=10,null=True)
 

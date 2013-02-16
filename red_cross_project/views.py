@@ -65,6 +65,7 @@ def login(request):
 @login_required
 def profile_settings(request, **kwargs):
 	context = {}
+
 	if hasattr(request.user,'user_profile'): 
 		ex_profile = request.user.user_profile
 	else:
@@ -72,8 +73,9 @@ def profile_settings(request, **kwargs):
 		ex_profile.user = request.user
 		ex_profile.save()
 
+	form = ProfileForm(request.POST)
+	cloudinary.forms.cl_init_js_callbacks(form, request)
 	if request.method == 'POST':
-		form = ProfileForm(request.POST,request.FILES)
 		if 'save' in request.POST:
 			if form.is_valid():
 				profile = form.save(commit=False)
@@ -81,7 +83,7 @@ def profile_settings(request, **kwargs):
 				ex_profile.gender = profile.gender
 				ex_profile.age = profile.age
 				ex_profile.enrolled = profile.enrolled
-				ex_profile.profile_img = profile.profile_img
+				ex_profile.profile_img = form.cleaned_data['img']  
 				ex_profile.save()
 				context['message'] = '您的个人信息已经被成功更新' 
 			else:
