@@ -65,7 +65,6 @@ def login(request):
 
 @login_required
 def profile_settings(request, **kwargs):
-
 	context = {}
 	if hasattr(request.user,'user_profile'): 
 		ex_profile = request.user.user_profile
@@ -75,9 +74,8 @@ def profile_settings(request, **kwargs):
 		ex_profile.save()
 
 	if request.method == 'POST':
+		form = ProfileForm(request.POST,request.FILES)
 		if 'save' in request.POST:
-			form = ProfileForm(request.POST,request.FILES)
-			cloudinary.forms.cl_init_js_callbacks(form, request)
 			if form.is_valid():
 				profile = form.save(commit=False)
 				#find user's previously stored profile info and overwrite it
@@ -85,22 +83,12 @@ def profile_settings(request, **kwargs):
 				ex_profile.age = profile.age
 				ex_profile.enrolled = profile.enrolled
 				ex_profile.profile_img = profile.profile_img
-				'''
-				if profile.profile_img:
-					#if the user uploads a new profile image
-					#if the user has set a profile image before
-					#find the previous one's path and delete it from the file-system(if file exist)
-					if ex_profile.profile_img:
-						path = os.path.join(MEDIA_ROOT,ex_profile.profile_img.name)
-						if os.path.exists(path) :
-							os.remove(path)
-					ex_profile.profile_img = profile.profile_img
-					'''
 				ex_profile.save()
 
 				context['message'] = '您的个人信息已经被成功更新' 
 			else:
 				context['message'] = '对不起,由于格式问题您的信息没有被成功更新'
+				
 			context['form'] = form
 	else:
 		form = ProfileForm(instance = ex_profile)

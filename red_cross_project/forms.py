@@ -21,7 +21,7 @@ class SearchForm(forms.Form):
 
 class ProfileForm(forms.ModelForm):
 
-	profile_img = cloudinary.forms.CloudinaryFileField()
+	profile_img = cloudinary.forms.CloudinaryField()
 
 	class Meta:
 		model = ExtraProfile

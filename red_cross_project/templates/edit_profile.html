@@ -28,8 +28,7 @@
 		{% endif %}
 		<div>肖像:
 			{% if request.user.user_profile and request.user.user_profile.profile_img %}
-				<img class="profile_img" src="{{request.user.user_profile.profile_img.url}}"/>
-				{% cloudinary image width=100 height=100 crop="fill" public_id="question.author"%}  
+				{% cloudinary image width=100 height=100 crop="fill" public_id="question.author.id"%}  
 			{% else %}
 				{% if request.user.user_profile.gender == 'M' %}
 				<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	

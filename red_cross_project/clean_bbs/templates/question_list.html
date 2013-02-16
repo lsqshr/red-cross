@@ -1,4 +1,5 @@
-<ul>
+
+{% load cloudinary %}
 	{% for question in questions %}
 	<!--table for rendering a thread-->
 	<div class="thread">
@@ -18,14 +19,13 @@
 			<tr class="thread_tr2">
 				<td class="thread_td1">
 					{% if question.author.user_profile and question.author.user_profile.profile_img %}
-						<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
-						{% cloudinary image width=100 height=100 crop="fill" public_id="question.author"%}  
+						{% cloudinary image width=100 height=100 crop="fill" public_id="question.author.id"%}  
 					{% else %}
-					{% if request.user.user_profile.gender == 'M' %}
-					<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
-					{% else %}
-					<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
-					{% endif %}
+						{% if request.user.user_profile.gender == 'M' %}
+						<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+						{% else %}
+						<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+						{% endif %}
 					{% endif %}
 					{% if question.author.user_profile.role == 'D'%}
 					<b>医生</bbs>
