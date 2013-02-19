@@ -8,7 +8,15 @@
 	<a href="/bbs/">返回</a>
 </div>
 
-<div class="single_form">
+{% if not request.user.is_authenticated %}
+	<div id="post_profile" style="font-size:1.1em;color:#819FF7;margin:3%;margin-left:10%;font-family: Pmingliu,verdana,arial,sans-serif;font-size:1.1em;">
+	请在问题中注明您的年龄、性别等信息，并尽可能描述您情况的细节，这样便于医生和其他患者朋友更准确得为您答疑。<br>您也可以<a href="/accounts/login/">点击这里登陆</a>或<a href="/accounts/signup/">注册为中心新用户</a>（30秒注册）来方便存储个人信息。
+</div>
+{% else %}
+	{% include 'user_profile.html' %}
+{% endif %}
+
+<div class="single_form" style="width:55%;float:left;margin-left:-5%;">
 <form action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	<div>标题： {{form.title}}</div>

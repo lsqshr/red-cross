@@ -6,7 +6,11 @@
 			<tr class="thread_tr1">
 				<td class="thread_td1">
 					<span style="margin:5%;margin-left:10%;font-size:1.2em;color:white;">
-						{{ question.author.username }}
+						{% if question.author %}
+							{{ question.author.username }}
+						{% else %}
+							未登录用户
+						{% endif %}
 					</span>
 				</td>
 				<td class="thread_td2">

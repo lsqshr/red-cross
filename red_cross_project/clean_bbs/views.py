@@ -131,7 +131,6 @@ def single(request, **kwargs):
 			context_instance = RequestContext(request, {}))
 
 
-@login_required
 def post(request,**kwargs):
 	context = {}	
 	errors = []
@@ -139,8 +138,11 @@ def post(request,**kwargs):
 		if 'question' in request.POST:
 			form = QuestionForm(request.POST)
 			if form.is_valid():
-				question=form.save(commit=False)	
-				question.author = request.user
+				question = form.save(commit=False)	
+				if request.user and request.user.is_authenticated() :
+					question.author = request.user
+				else :
+					question.author = None
 				question.save()
 
 				# add the question to IR index
@@ -152,7 +154,8 @@ def post(request,**kwargs):
 				errors.append(u'对不起,您发表的问题字数超啦')
 				context['form'] = form
 				context['errors'] = errors
-				return render_to_response('post.html',context,context_instance=RequestContext(request, {}))
+				return render_to_response('post.html',context,\
+					context_instance=RequestContext(request, {}))
 		else:pass
 	else:
 		context['form'] = QuestionForm(request.POST)

@@ -1,0 +1,34 @@
+<div id="profile" style="width:30%;float:left;margin-left:5%;line-height:1.4em;">
+	Hi, {{ request.user.username}}<br>
+	{% if request.user.user_profile and request.user.user_profile.profile_img %}
+		<img class="profile_img" src="{{request.user.user_profile.profile_img.url}}"/>
+	{% else %}
+		{% if request.user.user_profile.gender == 'M' %}
+			<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+		{% else %}
+			<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+		{% endif %}
+	{% endif %}<br>
+	您已存储的个人信息：<br>
+	年龄:
+	{% if request.user.extra_profile.age %}
+		{{request.user.extra_profile.age}}
+	{% else %}
+		尚未填写
+	{% endif %}
+		<br> 性别:
+	{% if request.user.extra_profile.gender %}
+		{{request.user.extra_profile.gender}}
+	{% else %}	
+		尚未填写
+	{% endif %}
+	<br>
+
+	您
+	{% if request.user.extra_profile.enrolled == True %}
+		已经是
+	{% else%}尚未成为
+	{% endif %}
+	本中心患者 <br>
+	<a href="/accounts/profile_settings/">点此修改个人信息</a>
+</div>

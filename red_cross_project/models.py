@@ -13,7 +13,7 @@ class Thread(models.Model):
 	update_time = models.DateTimeField(default=datetime.datetime.now())
 	post_time = models.DateTimeField(default=datetime.datetime.now())
 	stamps = models.ManyToManyField(Stamp, null=True , related_name = 'Threads')
-	author = models.ForeignKey(User,related_name = 'threads')
+	author = models.ForeignKey(User,related_name = 'threads', null=True)
 
 class UserStatics(models.Model):
 	thanks_amount = models.IntegerField(default=0)

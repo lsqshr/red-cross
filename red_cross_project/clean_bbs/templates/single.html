@@ -115,7 +115,10 @@
 </div>
 
 {% if authenticated %}
-	<div class="single_form" style="float:left;margin-left:-5%;">
+<div style="margin-left:-10%;">
+	{% include 'user_profile.html' %}
+</div>
+	<div class="single_form" style="float:left;margin-left:-10%;">
 		<form action="" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			<div>您的回答： {{ form.content }}
