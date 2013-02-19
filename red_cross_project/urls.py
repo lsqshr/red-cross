@@ -8,7 +8,7 @@ admin.autodiscover()
 from red_cross_project.clean_bbs import urls
 
 urlpatterns = patterns("",
-    url(r"^$", direct_to_template, {"template": "homepage2.html"}, name="home"),
+    url(r"^$", 'red_cross_project.views.homepage', name="home"),
     url(r"^admin/", include(admin.site.urls)),
     #url(r"^accounts/signup/$",'red_cross_project.views.signup' , name="account_signup"),
     url(r"^accounts/login/$",'red_cross_project.views.login', name='login'),
@@ -16,6 +16,7 @@ urlpatterns = patterns("",
     url(r"^accounts/", include("account.urls")),
     url(r"^bbs/", include("red_cross_project.clean_bbs.urls")),
     url(r"^post/", include("red_cross_project.clean_post.urls")),
+    url(r"^guide/",'red_cross_project.views.guide',name="guide"),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
