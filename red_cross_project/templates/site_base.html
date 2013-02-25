@@ -22,21 +22,20 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/hint-textbox.js"></script>
 {% block extra_head %}{% endblock %}
 </head>
-<body>
+<body bgcolor="FCDFFF">
 	<!-- top wrapper -->
 	<div id="topWrapper">
 		<div id="topBannerWrapper" style="background-image:url({{ STATIC_URL }}images/css/topBannerWrapper-bg.jpg);">
 			<div id="topBanner" style="background-image:url({{ STATIC_URL }}images/css/topBanner.jpg);">
-				<a href="/" style="position: absolute; top: 15px; left:150px; width: 350px; height: 80px;"></a>			
+				<a href="/" style="position: absolute; top:1%; left:12%; width: 28%; height:12%;"></a>			
 				<div id="hmenuWrapper">
 					<div id="hmenu">
 						<ul>
-							<li name="homepage"><a href="/"
-								shape="rect">主页</li>
-							<li name="bbs"><a href="{% url bbs %}" shape="rect">问答区</li>
+							<li name="homepage"><a href="/">主页</a></li>
+							<li name="bbs"><a href="{% url bbs %}">问答区</a></li>
 							<!--<li><a href="{% url posts %}" shape="rect"/>健康贴士发布区</li>-->
-							<li name="guide"><a href="/guide/" shape="rect">就诊导航</li>
-							<li name="logout"><a href="{% url account_logout %}">登出</a></li>
+							<li name="guide"><a href="/guide/">就诊导航</a></li>
+							<li name="logout"><a href="{% url account_logout %}">注销</a></li>
 						</ul>
 							<script language="javascript" type="text/javascript">
 								var li = document.getElementsByName('{{ page_name }}')[0];

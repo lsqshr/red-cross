@@ -77,7 +77,7 @@ p {
 	list-style:none inside none;
 	margin:0;
 	padding:0;
-	font-size:14px;
+	font-size:16px;
 	font-family:Arial,sans-serif;
 }
 
@@ -90,12 +90,15 @@ p {
 	color:#660d05;
 	display:block;
 	float:left;
-	font-size:14px;
+	font-size:16px;
 	font-weight:bold;
-	height:2em;
-	line-height:2em;
+	line-height:1.5em;
 	text-align:center;
-	margin:0 20px;
+	margin:0 50px 0;
+	-webkit-border-radius: 8px;
+	border-radius: 6px;
+	padding-right:4px;
+	padding-left:4px;
 }
 
 
