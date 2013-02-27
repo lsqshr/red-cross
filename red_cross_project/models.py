@@ -47,3 +47,21 @@ class ExtraProfile(models.Model):
 	def __unicode__(self):
 		return self.user.username
 
+class Field(models.Model):
+	'''
+	This is a model class to name a specialized field for Staff class, 
+	just avoiding repeating typing the same field names
+	'''
+	name = models.CharField( max_length = 16 )
+
+class Staff(models.Model):
+	'''
+	this is a model class for displaying the staff info on 'staff page', 
+	all the basic stuff of staffs is stored in the ExtraProfile class
+	'''
+	user = models.OneToOneField(User, related_name = 'staff_profile')
+	real_name = models.CharField( max_length = 16 )
+	position = models.CharField( max_length = 8 )
+	resume = models.CharField( max_length = 1024 )
+	rank = models.IntegerField()
+	fields = models.ManyToManyField( Field )

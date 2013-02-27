@@ -1,7 +1,7 @@
 #coding=utf-8
 
 from django import forms 
-from red_cross_project.clean_bbs.models import Question,Answer
+from red_cross_project.clean_bbs.models import Question,Answer,TempProfile
 
 class QuestionForm(forms.ModelForm):
 	class Meta:
@@ -24,3 +24,7 @@ class FilterForm(forms.Form):
     time_choices = (('all','全部'),((),()))
     time = forms.ChoiceField()
 
+class TempProfileForm(forms.ModelForm):
+    class Meta:
+        model = TempProfile
+        exclude = ('question')

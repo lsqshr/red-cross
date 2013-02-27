@@ -134,32 +134,56 @@ def single(request, **kwargs):
 def post(request,**kwargs):
 	context = {}	
 	errors = []
-	if request.method == "POST":
-		if 'question' in request.POST:
-			form = QuestionForm(request.POST)
-			if form.is_valid():
-				question = form.save(commit=False)	
-				if request.user and request.user.is_authenticated() :
-					question.author = request.user
-				else :
-					question.author = None
-				question.save()
+	debug = [] 
 
-				# add the question to IR index
-				searcher = Searcher()
-				searcher.add_documents(question.id,question.title,question.content,u'question')
-				return HttpResponseRedirect('/bbs/')
-			else:# form is not valid
-				#TODO: various errors
-				errors.append(u'对不起,您发表的问题字数超啦')
-				context['form'] = form
-				context['errors'] = errors
-				return render_to_response('post.html',context,\
-					context_instance=RequestContext(request, {}))
-		else:pass
+	if request.method == "POST":
+		form = QuestionForm( request.POST )
+
+		if form.is_valid():
+			question = form.save(commit=False)	
+
+			if request.user and request.user.is_authenticated() :
+				question.author = request.user
+			else :
+				question.author = None
+
+			question.save()
+			# add the question to IR index
+			searcher = Searcher()
+			searcher.add_documents( question.id, question.title, question.content, u'question' )
+
+			debug.append('fuck not in')
+			if request.POST['auth'] == 'False' :
+				debug.append('in not auth')
+				temp_profile_form = TempProfileForm( request.POST )
+				if temp_profile_form.is_valid() :
+					debug.append('in valid')
+					profile = temp_profile_form.save( commit = False )
+					profile.question = question
+					profile.save()
+				else:
+					errors.append(u'对不起，您输入的信息有误')
+					context['form'] = form
+					context['temp_profile_form'] = TempProfileForm( request.POST )
+					context['errors'] = errors
+					return render_to_response('post.html',context,\
+						context_instance=RequestContext(request, {}))
+
+			context['debug'] = debug
+			#return HttpResponse(''.join(debug))
+			return HttpResponseRedirect('/bbs/')
+
+		else:# form is not valid
+			errors.append(u'对不起,您发表的问题字数超啦')
+			context['form'] = form
+			context['temp_profile_form'] = TempProfileForm(request.POST)
+			context['errors'] = errors
+			return render_to_response('post.html',context,\
+				context_instance=RequestContext(request, {}))
 	else:
 		context['form'] = QuestionForm(request.POST)
-		return render_to_response('post.html',context, context_instance=RequestContext(request, {}))
+		context['temp_profile_form'] = TempProfileForm(request.POST)
+		return render_to_response('post.html', context, context_instance=RequestContext(request, {}))
 
 #login_required
 def delete(request,**kwargs):

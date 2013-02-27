@@ -1,0 +1,13 @@
+{% extends 'site_base.html' %}
+
+{% block content %}
+	{% for staff in staffs %}
+		<img class="profile_img" src="{{staff.user.profile_img.url}}"/>
+		{{staff.real_name}}	
+		{{staff.position}}<br>
+		{% for field in staff.fields %}
+		 	{{ field.name }}
+		{% endfor %}<br>
+		{{ staff.resume }}
+	{% endfor %}
+{% endblock %}

@@ -9,7 +9,7 @@ import account.views
 
 from .forms import SignupForm
 from red_cross_project.forms import ProfileForm,LoginForm
-from red_cross_project.models import ExtraProfile
+from red_cross_project.models import ExtraProfile,Staff
 from red_cross_project.settings import MEDIA_ROOT
 
 import datetime
@@ -65,7 +65,6 @@ def login(request):
 
 @login_required
 def profile_settings(request, **kwargs):
-
 	context = {}
 	if hasattr(request.user,'user_profile'): 
 		ex_profile = request.user.user_profile
@@ -110,3 +109,10 @@ def guide(request):
 	context = {'page_name': 'guide'}
 	return render_to_response('guide.html',context,\
 			context_instance=RequestContext(request, {}) )
+
+def staffs(request):
+	#get all the staff
+	staffs = Staff.objects.all().order_by('rank')
+	context = {'staffs':staffs,}
+	return render_to_response('staff.html',context,\
+			context_instance=RequestContext(request,{}))	
