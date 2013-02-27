@@ -12,27 +12,44 @@
 {% block content %}
      <!-- WRAPPER -->
     <div id="wrapper">
-        <div id="shell" class="container">
-            <div id="content" class="pad">
+        <div id="shell" class="container" style="text-align:center;">
+            <div id="content" class="pad" 
+            style="
+            background-color:#EBDDE2;
+            width:65%;height:55%;
+            margin-left:12%;
+            margin-top:10%;
+            padding:5%;
+            -webkit-border-radius: 30px;
+			border-radius: 30px;">
                 <form action="" method="post">
                 {% csrf_token %}
-                <p>登录到已注册的账户, 或者<a href="/accounts/signup/">注册成为新用户</a></p>
+                <p style="font-color:#660d05;" font-size=20px;><center>登录到已注册的账户, 或者<a href="/accounts/signup/"><font color=#8181F7>注册成为新用户</font></a></center></p>
                 {% for error in errors %}
                     {{error}}
                 {% endfor %}
                     <p><span class="field big">
-                        <label for="username">用户名:</label>
-                        {{form.username}}
+                        <center><label for="username">用户名:</label>
+                        {{form.username}}</center>
                     </p>
                     <p>
                         <span class="field password big">
-                        <label for="username">密码:</label>
-                        {{form.password}} 
-                            <a href="/accounts/password/reset/">忘记密码?</a>
+                        <center><p style="margin-left:29%;"><label for="username">密码:</label>
+                        {{form.password}}
+                            </p></center>
                         </span>
                     </p>
                     <div id="form_submit">
-                        <input type="submit" name="login_submit" value="登录" />
+                        <input style="
+                        width:10%;
+                        height:2%;
+                        background-color:#6960EC;
+                        padding:0.5%;
+                        color:white;
+                        -webkit-border-radius: 4px;
+						border-radius: 4px;
+						margin-left:31%;" type="submit" name="login_submit" value="登录" />
+						<a href="/accounts/password/reset/">忘记密码?</a>
                     </div>
                 </form>
             </div>
