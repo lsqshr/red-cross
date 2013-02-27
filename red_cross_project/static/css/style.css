@@ -61,7 +61,7 @@ p {
 
 
 #hmenuWrapper {
-	width:100%;
+	width:150%;
 	margin:0 auto ;
 }
 
@@ -69,6 +69,7 @@ p {
 	position:relative;
 	top:30px;
 	float:right;
+	margin-right: 30%;
 }
 
 
@@ -83,18 +84,18 @@ p {
 
 #hmenu ul li {
 	float:left;
+
 }
 
 #hmenu ul li a {
 	border:0 none;
 	color:#660d05;
 	display:block;
-	float:left;
 	font-size:16px;
 	font-weight:bold;
 	line-height:1.5em;
 	text-align:center;
-	margin:0 50px 0;
+	margin:0 15px 0;
 	-webkit-border-radius: 8px;
 	border-radius: 6px;
 	padding-right:4px;
@@ -111,7 +112,6 @@ p {
 	background: -ms-linear-gradient(-45deg,  rgba(169,3,41,1) 0%,rgba(143,2,34,1) 44%,rgba(109,0,25,1) 100%);
 	background: linear-gradient(135deg,  rgba(169,3,41,1) 0%,rgba(143,2,34,1) 44%,rgba(109,0,25,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=1 );
-
 	color:#FFFFFF; 
 }
 
@@ -138,9 +138,6 @@ p {
 	background: -ms-linear-gradient(top,  #a90329 0%,#8f0222 5%,#6d0019 100%);
 	background: linear-gradient(to bottom,  #a90329 0%,#8f0222 5%,#6d0019 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=0 );
-
-
-
 }
 
 

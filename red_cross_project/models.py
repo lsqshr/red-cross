@@ -42,7 +42,6 @@ class ExtraProfile(models.Model):
 	user = models.OneToOneField(User, related_name = 'user_profile')
 	profile_img = models.ImageField(upload_to = 'images/%Y/%m/%d', null=True)
 	role = models.CharField(default='P',max_length=1,choices=role_choices) #P:patient/D:doctor, it can only changed by administrator
-	position = models.CharField(default='医师',max_length=10,null=True)
 
 	def __unicode__(self):
 		return self.user.username
@@ -54,6 +53,11 @@ class Field(models.Model):
 	'''
 	name = models.CharField( max_length = 16 )
 
+
+	def __unicode__(self):
+		return self.name
+
+
 class Staff(models.Model):
 	'''
 	this is a model class for displaying the staff info on 'staff page', 
@@ -61,7 +65,15 @@ class Staff(models.Model):
 	'''
 	user = models.OneToOneField(User, related_name = 'staff_profile')
 	real_name = models.CharField( max_length = 16 )
-	position = models.CharField( max_length = 8 )
+	position = models.CharField( max_length = 16 )
 	resume = models.CharField( max_length = 1024 )
 	rank = models.IntegerField()
-	fields = models.ManyToManyField( Field )
+	fields = models.ManyToManyField( Field, null=True )
+
+	def __unicode__(self):
+		if self.real_name:
+			return self.real_name
+		else:
+			return self.user.username
+
+

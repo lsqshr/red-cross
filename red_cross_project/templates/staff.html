@@ -2,10 +2,20 @@
 
 {% block content %}
 	{% for staff in staffs %}
-		<img class="profile_img" src="{{staff.user.profile_img.url}}"/>
+		<!--profile image-->
+		{% if staff.user.user_profile and staff.user.user_profile.profile_img %}
+					<img class="profile_img" src="{{staff.user.user_profile.profile_img.url}}"/>
+		{% else %}
+			{% if staff.user.user_profile.gender == 'M' %}
+				<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+			{% else %}
+				<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+			{% endif %}
+		{% endif %}
+		<!--end profile image-->
 		{{staff.real_name}}	
 		{{staff.position}}<br>
-		{% for field in staff.fields %}
+		{% for field in staff.fields.all %}
 		 	{{ field.name }}
 		{% endfor %}<br>
 		{{ staff.resume }}
