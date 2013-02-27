@@ -14,7 +14,7 @@ TO REMOVE THE LINK, PLEASE MAKE A 10 DOLLARS DONATION at www.dotemplate.com/#don
 html {
 	background: $bottomWrapper.bg.color;
 	margin:0 0 0 -1px;
-	padding:0;	
+	ding:0;	
 	overflow-Y: scroll;
 }
 
@@ -594,4 +594,3 @@ INPUT.hintTextboxActive { color: #000; }
 #faq h3{
 	color:#2A120A;
 }
-
