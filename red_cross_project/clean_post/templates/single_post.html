@@ -81,7 +81,7 @@
 			</td>
 			<td class="thread_td2">
 				<span style="margin:5%;font-size:1.5em;">
-					回答: {{ post.title }}
+					评论: {{ post.title }}
 				</span>
 			</td>
 		</tr>
@@ -90,11 +90,11 @@
 				{% if reply.author.user_profile and reply.author.user_profile.profile_img %}
 				<img class="profile_img" src="{{reply.author.user_profile.profile_img.url}}"/>
 				{% else %}
-				{% if reply.author.user_profile.gender == 'M' %}
-				<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
-				{% else %}
-				<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
-				{% endif %}
+					{% if reply.author.user_profile.gender == 'M' %}
+					<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+					{% else %}
+					<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+					{% endif %}
 				{% endif %}
 				{% if reply.author.user_profile.role == 'D'%}
 					<b>医生</bbs>
