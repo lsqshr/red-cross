@@ -26,7 +26,7 @@
                 {% csrf_token %}
                 <p style="font-color:#660d05;" font-size=20px;><center>登录到已注册的账户, 或者<a href="/accounts/signup/"><font color=#8181F7>注册成为新用户</font></a></center></p>
                 {% for error in errors %}
-                    {{error}}
+                    <center><font color="#F62217">{{error}}</font></center>
                 {% endfor %}
                     <p><span class="field big">
                         <center><label for="username">用户名:</label>

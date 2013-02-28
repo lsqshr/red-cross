@@ -52,7 +52,7 @@
      <p class="what_next">您好已注册的朋友 您可以<a href="{% url profile_settings %}" style="color:#660d05;"><i class="icon-user"></i>点此修改</a>个人信息</p>
 
      {% if request.user.is_superuser %}
-     <p> 您是系统管理员, <a href="/admin/" color="#660d05">您可以点击进入管理页面</a></p>
+     <p> 您是系统管理员, <a href="/admin/" style="color:#660d05;">您可以点击进入管理页面</a></p>
      {% endif %}
 
      {% else %}
