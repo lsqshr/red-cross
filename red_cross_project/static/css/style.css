@@ -542,6 +542,10 @@ a img {
 	height:120px;
 }
 
+.profile div {
+   margin-top: 1.5%;
+} 
+
 INPUT.hintTextbox       { color: #888; }
 INPUT.hintTextboxActive { color: #000; }
 
@@ -590,4 +594,8 @@ INPUT.hintTextboxActive { color: #000; }
 
 #faq h3{
 	color:#2A120A;
+}
+
+.errors {
+	color:red;
 }

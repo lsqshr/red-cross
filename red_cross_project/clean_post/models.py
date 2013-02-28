@@ -5,7 +5,7 @@ from red_cross_project.models import Thread
 class Post(Thread):
 	thanks = models.IntegerField(default = 0)
 	diagree = models.IntegerField(default = 0)
-	content = models.CharField(max_length = 10000)
+	content = models.CharField(max_length = 32767)
 
 class Reply(Thread):
 	post = models.ForeignKey(Post,related_name = 'Replies')
