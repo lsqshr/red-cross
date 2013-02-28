@@ -8,19 +8,25 @@
 	<a href="/">返回首页</a>
 </div>
 
-<div>{{ message }}</div>
-
 <div>{{debug}}</div>
 
-<div class="single_form">
+<div class="single_form"
+	style="
+            background-color:#EBDDE2;
+            width:65%;height:55%;
+            margin-left:12%;
+            padding:5%;
+            -webkit-border-radius: 30px;
+			border-radius: 30px;">
+			<div style="margin-top:1%; text-align:center; font-size:17px;color:#C34A2C;">{{ message }}</div>
 <form action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
-	<div>年龄:{{form.age}}{{form.age.errors}}</div>
-	<div>性别:{{form.gender}}{{form.gender.errors}}</div>
+	<div><br><center>年龄:{{form.age}}{{form.age.errors}}</center></div>
+	<div style="margin-left:32.8%;">性别:{{form.gender}}{{form.gender.errors}}</div>
 	{% if request.user.user_profile.role == 'P' %}
-		<div>是否已为本中心患者:{{form.enrolled}}</div>
+		<div style="margin-left:32.8%;">是否已为本中心患者:{{form.enrolled}}</div>
 	{% endif %}
-	<div>肖像:
+	<div style="margin-left:32.8%;">头像:
 		{% if request.user.user_profile and request.user.user_profile.profile_img %}
 			<img class="profile_img" src="{{request.user.user_profile.profile_img.url}}"/>
 		{% else %}
@@ -35,8 +41,16 @@
 		{{form.profile_img.errors}}
 	</div> 
 
-	<div id="submit_question_btn">
-		<button name="save" type="submit" class="btn">保存</button>
+	<div id="submit_question_btn" >
+		<br><button name="save" type="submit" class="btn" style="
+						width:10%;
+                        height:2%;
+                        background-color:#C34A2C;
+                        padding:0.5%;
+                        color:white;
+                        -webkit-border-radius: 4px;
+						border-radius: 4px;
+						margin-left:55%;">保存</button>
 	</div>
 </form>
 </div>
