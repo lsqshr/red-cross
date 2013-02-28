@@ -5,6 +5,17 @@
 			background-color:#FAF8CC;
 			-webkit-border-radius: 5px; 
 			border-radius: 5px;" 
-	class="hintTextbox"/>
-	<button type="submit" class="btn" name="search">搜索答案</button>
+	class="hintTextbox" onkeypress="searchKeyPress(event);"/>
+	<button type="submit" class="btn" name="search" id="search" onclick="doSomething();">搜索答案</button>
+	<script>
+    function searchKeyPress(e)
+    {
+        // look for window.event in case event isn't passed in
+        if (typeof e == 'undefined' && window.event) { e = window.event; }
+        if (e.keyCode == 13)
+        {
+            document.getElementById('search').click();
+        }
+    }
+    </script>
 </form>
