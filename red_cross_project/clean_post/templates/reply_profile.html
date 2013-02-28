@@ -1,0 +1,14 @@
+{% if not reply.author.staff_profile %}
+	<div>{{reply.author.user_profile.age}}岁&nbsp &nbsp{%if reply.author.user_profile.gender == 'M'%}男{%else%}女{%endif%}</div>
+	<div>{% if reply.author.user_profile.enrolled == True %}已经是医院患者{%else%}还不是医院患者{%endif%}</div>
+	<div>病史: {{reply.author.user_profile.history}}</div>
+{% else %}
+	<div>性别：{%if reply.author.user_profile.gender == 'M'%}男{%else%}女{%endif%}</div>
+	<div>真实姓名：{{ reply.author.staff_profile.real_name }}</div>
+	<div>职位：{{ reply.author.staff_profile.position }}</div>
+	<div>领域：
+		{% for field in reply.author.staff_profile.fields.all %}
+		{{ field }} &nbsp
+		{% endfor %}
+	</div>
+{% endif %}

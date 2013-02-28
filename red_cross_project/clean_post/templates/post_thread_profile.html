@@ -1,0 +1,7 @@
+<div>性别：{%if post.author.user_profile.gender == 'M'%}男{%else%}女{%endif%}</div>
+<div>真实姓名：{{ post.author.staff_profile.real_name }}</div>
+<div>职位：{{ post.author.staff_profile.position }}</div>
+<div>领域：{% for field in post.author.staff_profile.fields.all %}
+	{{ field }} &nbsp
+	{% endfor %}
+</div>

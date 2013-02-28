@@ -13,6 +13,7 @@
 
 <div>
 	{% if request.user.username == question.author.username %}
+	您是本条问题的作者 您可以：
 	<a href="{% url edit_question question.id %}">修改内容</a>
 	<a href="{% url delete_question question.id %}">删除本条问题</a>
 	{% endif %}
@@ -25,7 +26,11 @@
 		<tr class="thread_tr1">
 			<td class="thread_td1">
 				<span style="margin:5%;margin-left:10%;font-size:1.2em;color:white;">
-					{{ question.author.username }}
+					{% if question.author %}
+						{{ question.author.username }}
+					{% else %}
+						未登录用户
+					{% endif %}
 				</span>
 			</td>
 			<td class="thread_td2">
@@ -57,6 +62,7 @@
 			</tr>
 			<tr>
 				<td>
+					{% include "thread_profile.html" %}
 				</td>
 				<td>
 					<span style="color:#D8D8D8;font-size:1.15em;float:right;margin-right:2%;">当前答案数({{question.answers.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ question.update_time}}</span>
@@ -104,6 +110,7 @@
 			</tr>
 			<tr>
 				<td>
+					{% include "answer_profile.html" %}
 				</td>
 				<td>
 					<span style="color:#D8D8D8;font-size:1.15em;float:right;margin-right:2%;"> &nbsp &nbsp &nbsp &nbsp{{ answer.update_time}}</span>

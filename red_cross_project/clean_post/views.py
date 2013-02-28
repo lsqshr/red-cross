@@ -102,6 +102,7 @@ def single(request, **kwargs):
 					context['form'] = ReplyForm() 
 				except:
 					raise Exception("Can not find post with id"+str(post_id))
+				context['authenticated'] = True 
 				return render_to_response("single_post.html",context,\
 					context_instance = RequestContext(request,{}))
 			else:#the form is invalid

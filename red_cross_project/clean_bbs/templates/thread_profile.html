@@ -1,0 +1,31 @@
+<span class="profile">
+{% if not question.author.staff %}
+	{% if question.temp_profile.all %} 
+	<!-- actually there should be just one --> 
+		{% for temp in question.temp_profile.all%}
+				<div>{{temp.age}}岁&nbsp &nbsp{%if temp.gender == 'M'%}男{%else%}女{%endif%}</div>
+				<div>{% if temp.enrolled == True %}已经是医院患者{%else%}还不是医院患者{%endif%}<div>
+				<div>病史: {{temp.history}}</div>
+			{% endfor %}
+	{% else %}
+			<div>{{question.author.user_profile.age}}岁&nbsp &nbsp{%if question.author.user_profile.gender == 'M'%}男{%else%}女{%endif%}</div>
+			<div>{% if question.author.user_profile.enrolled == True %}已经是医院患者{%else%}还不是医院患者{%endif%}</div>
+			<div>病史: 
+				{% if question.author.user_profile.history %}
+					{{question.author.user_profile.history}}
+				{% else %}
+					无
+				{% endif %}
+			</div>
+	{% endif %}
+{% else %}
+	<div>性别：{%if post.author.user_profile.gender == 'M'%}男{%else%}女{%endif%}</div>
+	<div>真实姓名：{{ post.author.staff_profile.real_name }}</div>
+	<div>职位：{{ post.author.staff_profile.position }}</div>
+	<div>领域：
+		{% for field in post.author.staff_profile.fields.all %}
+		{{ field }} &nbsp
+		{% endfor %}
+	</div>
+{% endif %}
+</span>
