@@ -16,6 +16,7 @@ urlpatterns = patterns("",
     url(r"^accounts/", include("account.urls")),
     url(r"^bbs/", include("red_cross_project.clean_bbs.urls")),
     url(r"^post/", include("red_cross_project.clean_post.urls")),
+    url(r"^staff/", 'red_cross_project.views.staffs', name="staffs"),
     url(r"^guide/",'red_cross_project.views.guide',name="guide"),
 )
 

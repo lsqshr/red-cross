@@ -20,3 +20,11 @@ class Answer(Thread):
 	thanks = models.IntegerField(default = 0)
 	disagree = models.IntegerField(default = 0)
 	content = models.CharField(max_length = 10000)
+
+class TempProfile(models.Model):
+	GENDER_CHOICES = (('M','Male'),('F','Female'),)
+	question = models.ForeignKey(Question, related_name = 'temp_profile')
+	age = models.IntegerField(default = 0)
+	gender = models.CharField(max_length = 1, choices = GENDER_CHOICES , default = 'F')
+	enrolled = models.BooleanField(default = True)
+	history = models.CharField(max_length = 255, null = True) # history of the diseases the user has suffered before

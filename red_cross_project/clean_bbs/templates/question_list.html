@@ -24,11 +24,21 @@
 					{% if question.author.user_profile and question.author.user_profile.profile_img %}
 					<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
 					{% else %}
-					{% if request.user.user_profile.gender == 'M' %}
-					<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
-					{% else %}
-					<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
-					{% endif %}
+						{% if not question.temp_profile %}
+							{% if request.user.user_profile.gender == 'M' %}
+								<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+							{% else %}
+								<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+							{% endif %}
+						{% else %}
+							{% for temp in question.temp_profile.all%}
+								{% if temp.gender == 'M' %}
+									<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+								{% else %}
+									<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+								{% endif %}
+							{% endfor %}
+						{% endif %}
 					{% endif %}
 					{% if question.author.user_profile.role == 'D'%}
 					<b>医生</bbs>
@@ -43,6 +53,17 @@
 				</tr>
 				<tr>
 					<td>
+						<!-- actually there should be just one -->
+						{% for temp in question.temp_profile.all%}
+							{{temp.age}}岁&nbsp &nbsp
+							{%if temp.gender == 'M'%}男{%else%}女{%endif%}<br>
+							{% if temp.enrolled == True %}已经是医院患者{%else%}还不是医院患者{%endif%}
+							<br>病史: {{temp.history}}
+						{% endfor %}
+						  
+
+
+
 					</td>
 					<td>
 						<span style="color:#D8D8D8;font-size:1.15em;float:right;margin-right:2%;">当前答案数({{question.answers.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ question.update_time}}</span>
