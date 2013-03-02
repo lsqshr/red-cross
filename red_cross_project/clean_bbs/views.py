@@ -14,21 +14,21 @@ from red_cross_project.woosh_searcher import Searcher
 def bbs(request, **kwargs):
 	total_set = []
 	debug = []
+	context = {}
 	#get the question list to render
 	if request.method == 'GET':
 		if 'search' in request.GET:
 			search_form = SearchForm(request.GET)
 			if search_form.is_valid():
 				cd = search_form.cleaned_data
-				keywords = cd['key_words']
-				if keywords is None:
+				keywords = cd['key_words'] 
+				context['keywords'] = keywords
+				if keywords is None or keywords == "":
 					total_set = Question.objects.order_by('-update_time')
 				else:
 					#start to search for questions and answers using whoosh 
 					searcher = Searcher()
 					matching_ids = searcher.search(unicode(keywords),u'question')
-					debug.append(unicode(keywords))
-					debug.append(matching_ids)
 					for id in matching_ids:
 						try:
 							total_set.append(Question.objects.get(id=id))
@@ -56,7 +56,6 @@ def bbs(request, **kwargs):
 		questions = total_set[ start_idx : start_idx + 12 ]
 
 	#prepare the context
-	context = {}
 	context['request'] = request
 	context['questions'] = questions
 	context['search_form'] =  SearchForm()
