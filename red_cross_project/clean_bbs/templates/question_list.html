@@ -24,7 +24,7 @@
 					{% if question.author.user_profile and question.author.user_profile.profile_img %}
 					<img class="profile_img" src="{{question.author.user_profile.profile_img.url}}"/>
 					{% else %}
-						{% if question.author != None %}
+						{% if question.temp_profile == None %}
 							{% if request.user.user_profile.gender == 'M' %}
 								<img class="profile_img" src="{{ STATIC_URL }}images/male.jpg" />	
 							{% else %}
