@@ -1,4 +1,5 @@
 
+
 {% for post in posts %}
 <!--table for rendering a thread-->
 <div class="thread">
@@ -46,8 +47,10 @@
 					{% endif %}
 				</td>
 				<td class="thread_td2">
-					<span class="content">
+					<span class="thread_content">
+						{% autoescape off %}
 						{{ post.content }}
+						{% endautoescape %}
 					</span>
 				</td>
 			</tr>
@@ -56,8 +59,8 @@
 					{% include "post_thread_profile.html" %}	
 				</td>
 				<td>
-					<span style="color:#D8D8D8;font-size:1.15em;float:right;margin-right:2%;">
-						当前答案数({{post.answers.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ post.update_time}}
+					<span style="color:#585858;font-size:1.15em;float:right;margin-right:2%;">
+						当前评论数({{post.replies.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ post.update_time}}
 					</span>
 				</td>
 			</tr>

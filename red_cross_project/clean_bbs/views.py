@@ -10,6 +10,7 @@ from red_cross_project.clean_bbs.forms import *
 from red_cross_project.forms import SearchForm
 
 from red_cross_project.woosh_searcher import Searcher
+import datetime
 
 def bbs(request, **kwargs):
 	total_set = []
@@ -145,6 +146,8 @@ def post(request,**kwargs):
 				question.author = request.user
 			else :
 				question.author = None
+			question.update_time = datetime.datetime.now()
+			question.post_time = datetime.datetime.now()
 
 			question.save()
 			# add the question to IR index
