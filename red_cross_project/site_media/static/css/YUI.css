@@ -1,0 +1,8 @@
+.yui-skin-sam .yui-toolbar-container .yui-toolbar-flickr span.yui-toolbar-icon {
+    background-image: url( assets/flickr_default.gif );
+    background-position: 1px 0px;
+}
+.yui-skin-sam .yui-toolbar-container .yui-toolbar-flickr-selected span.yui-toolbar-icon {
+    background-image: url( assets/flickr_active.gif );
+    background-position: 1px 0px;
+}

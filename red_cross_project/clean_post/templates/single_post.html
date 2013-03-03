@@ -43,9 +43,9 @@
 				<img class="profile_img" src="{{post.author.user_profile.profile_img.url}}"/>
 				{% else %}
 				{% if request.user.user_profile.gender == 'M' %}
-				<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+				<img class="profile_img" src="{{ STATIC_URL }}images/male.jpg" />	
 				{% else %}
-				<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+				<img class="profile_img" src="{{ STATIC_URL }}images/female.jpg" />	
 				{% endif %}
 				{% endif %}
 				{% if post.author.user_profile.role == 'D'%}
@@ -91,9 +91,9 @@
 				<img class="profile_img" src="{{reply.author.user_profile.profile_img.url}}"/>
 				{% else %}
 					{% if reply.author.user_profile.gender == 'M' %}
-					<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+					<img class="profile_img" src="{{ STATIC_URL }}images/male.jpg" />	
 					{% else %}
-					<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+					<img class="profile_img" src="{{ STATIC_URL }}images/female.jpg" />	
 					{% endif %}
 				{% endif %}
 				{% if reply.author.user_profile.role == 'D'%}
