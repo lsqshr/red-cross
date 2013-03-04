@@ -88,9 +88,11 @@ def profile_settings(request, **kwargs):
 					#if the user has set a profile image before
 					#find the previous one's path and delete it from the file-system(if file exist)
 					if ex_profile.profile_img:
-						path = 'image/'+ex_profile.profile_img.name
-						if default_storage.exists(path):
-							default_storage.delete(path)
+						name = ex_profile.profile_img.name
+						if default_storage.exists(name):
+							default_storage.delete(name)
+						else:
+							raise Exception('the previous file path is wrong')
 					ex_profile.profile_img = profile.profile_img
 				ex_profile.save()
 
