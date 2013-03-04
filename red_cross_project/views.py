@@ -55,7 +55,7 @@ def login(request):
 				                                            context_instance=RequestContext(request,{}))
 			else:# form is not valid
 				errors.append('请提供格式正确的用户名或者密码')
-				return render_to_response('login.html',{'login_form':LoginForm,\
+				return render_to_response('login.html',{'form':form,\
 				                                        'page_name':'Log-in','errors':errors},\
 				                                        context_instance=RequestContext(request,{}))
 	else:

@@ -198,3 +198,12 @@ AWS_SECRET_ACCESS_KEY = 'pl93zMF6CMQyqazgzUuLcvxpWij+lMB1Zoq7DoKc' #Your Amazon 
 AWS_STORAGE_BUCKET_NAME = 'hszzxyyszzx' #Your Amazon Web Services storage bucket name, as a string.
 
 #AWS_CALLING_FORMAT #(Subdomain hardcoded in s3boto)
+
+'''
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+'''
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

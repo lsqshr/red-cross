@@ -1,4 +1,5 @@
 
+
 {% for post in posts %}
 <!--table for rendering a thread-->
 <div class="thread">
@@ -15,7 +16,7 @@
 			</td>
 			<td class="thread_td2">
 				<span style="margin:5%;font-size:1.5em;">
-					<a href="/bbs/{{post.id}}" style="color:white;" class="thread_title">{{ post.title }}</a>
+					<a href="/post/{{post.id}}" style="color:white;" class="thread_title">{{ post.title }}</a>
 				</span>
 			</td>
 		</tr>
@@ -24,18 +25,18 @@
 				{% if post.author.user_profile and post.author.user_profile.profile_img %}
 				<img class="profile_img" src="{{post.author.user_profile.profile_img.url}}"/>
 				{% else %}
-					{% if not post.temp_profile %}
+					{% if post.author != None %}
 						{% if request.user.user_profile.gender == 'M' %}
-							<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+							<img class="profile_img" src="{{ STATIC_URL }}images/male.jpg" />	
 						{% else %}
-							<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+							<img class="profile_img" src="{{ STATIC_URL }}images/female.jpg" />	
 						{% endif %}
 					{% else %}
 						{% for temp in post.temp_profile.all%}
 							{% if temp.gender == 'M' %}
-								<img class="profile_img" src="{{ MEDIA_URL }}images/male.jpg" />	
+								<img class="profile_img" src="{{ STATIC_URL }}images/male.jpg" />	
 							{% else %}
-								<img class="profile_img" src="{{ MEDIA_URL }}images/female.jpg" />	
+								<img class="profile_img" src="{{ STATIC_URL }}images/female.jpg" />	
 							{% endif %}
 						{% endfor %}
 					{% endif %}
@@ -46,23 +47,20 @@
 					{% endif %}
 				</td>
 				<td class="thread_td2">
-					<span class="content">
+					<span class="thread_content">
+						{% autoescape off %}
 						{{ post.content }}
+						{% endautoescape %}
 					</span>
 				</td>
 			</tr>
 			<tr>
 				<td class="profile">
-						<div>性别：{%if post.author.user_profile.gender == 'M'%}男{%else%}女{%endif%}</div>
-						<div>真实姓名：{{ post.author.staff_profile.real_name }}</div>
-						<div>职位：{{ post.author.staff_profile.position }}</div>
-						<div>领域：{% for field in post.author.staff_profile.fields.all %}
-							{{ field }} &nbsp
-						{% endfor %}</div>
+					{% include "post_thread_profile.html" %}	
 				</td>
 				<td>
-					<span style="color:#D8D8D8;font-size:1.15em;float:right;margin-right:2%;">
-						当前答案数({{post.answers.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ post.update_time}}
+					<span style="color:#585858;font-size:1.15em;float:right;margin-right:2%;">
+						当前评论数({{post.replies.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ post.update_time}}
 					</span>
 				</td>
 			</tr>

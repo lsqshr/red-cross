@@ -10,6 +10,8 @@ from red_cross_project.forms import SearchForm
 from red_cross_project.clean_post.forms import *
 from red_cross_project.woosh_searcher import Searcher
 
+import datetime
+
 # Create your views here.
 def posts(request, **kwargs):
 	total_set = []
@@ -102,6 +104,7 @@ def single(request, **kwargs):
 					context['form'] = ReplyForm() 
 				except:
 					raise Exception("Can not find post with id"+str(post_id))
+				context['authenticated'] = True 
 				return render_to_response("single_post.html",context,\
 					context_instance = RequestContext(request,{}))
 			else:#the form is invalid
@@ -131,6 +134,8 @@ def new(request, **kwargs):
 			if form.is_valid():
 				post=form.save(commit=False)	
 				post.author = request.user
+				post.update_time = datetime.datetime.now()
+				post.post_time = datetime.datetime.now()
 				post.save()
 				# add the post to IR index
 				searcher = Searcher()
