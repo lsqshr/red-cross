@@ -83,6 +83,7 @@ def profile_settings(request, **kwargs):
 				ex_profile.gender = profile.gender
 				ex_profile.age = profile.age
 				ex_profile.enrolled = profile.enrolled
+				ex_profile.history = profile.history
 				if profile.profile_img:
 					#if the user uploads a new profile image
 					#if the user has set a profile image before
