@@ -1,23 +1,76 @@
 {% extends 'site_base.html' %}
 
 {% block content %}
+<div name="stuff" style="
+			margin-left:5%;
+			margin-top:5%;">
 	{% for staff in staffs %}
-		<!--profile image-->
-		{% if staff.user.user_profile and staff.user.user_profile.profile_img %}
-					<img class="profile_img" src="{{staff.user.user_profile.profile_img.url}}"/>
-		{% else %}
-			{% if staff.user.user_profile.gender == 'M' %}
-				<img class="profile_img" src="{{ STATIC_URL }}images/male.jpg" />	
-			{% else %}
-				<img class="profile_img" src="{{ STATIC_URL }}images/female.jpg" />	
-			{% endif %}
-		{% endif %}
-		<!--end profile image-->
-		{{staff.real_name}}	
-		{{staff.position}}<br>
-		{% for field in staff.fields.all %}
-		 	{{ field.name }}
-		{% endfor %}<br>
-		{{ staff.resume }}
+		<div id="indevidual" style="
+				width:100%;
+				height:100%;
+				padding:3%;
+				
+				">
+			<table style="width:98%;height:98%;border-collapse:collapse;">
+			<tr>
+				<td style="width:20%;height:30%;background-color:#F5A9A9;-webkit-border-top-left-radius: 12px;">
+				<!--profile image-->
+				{% if staff.user.user_profile and staff.user.user_profile.profile_img %}
+							<img style="
+								width:150px; height:180px;-webkit-border-radius: 3px;border-radius: 3px;border:1px solid #8BB3B1;margin-left:5%;" 
+								class="profile_img" src="{{staff.user.user_profile.profile_img.url}}"/>
+				{% else %}
+					{% if staff.user.user_profile.gender == 'M' %}
+						<img style="
+								width:150px;height:180px;-webkit-border-radius: 3px;border-radius: 3px;border:1px solid #8BB3B1;margin-left:5%;" 
+								 class="profile_img" src="{{ STATIC_URL }}images/male.jpg" />	
+					{% else %}
+						<img style="
+								width:150px; height:180px;-webkit-border-radius: 3px;border-radius: 3px;border:1px solid #8BB3B1;margin-left:5%;" 
+								 class="profile_img" src="{{ STATIC_URL }}images/female.jpg" />	
+					{% endif %}
+				{% endif %}
+				<!--end profile image-->
+				</td>
+				<td bgcolor="#F6CED8" style="-webkit-border-top-right-radius: 12px;">
+					<table style="text-align:center; margin-left:1%;">
+						<tr>
+							<td>
+								<p>姓名：{{staff.real_name}}</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p>性别：
+								{% if staff.user.user_profile.gender == 'M' %}
+									<span>男</span>
+								{% else %}
+									<span>女</span>
+								{% endif %}</p>
+							</td>
+						</tr>
+						<tr>
+							<td>	
+								<p>职位：{{staff.position}}</p>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p>擅长的领域：{% for field in staff.fields.all %}
+					 				{{ field.name }}
+								{% endfor %}</p><br>
+							</td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+			<tr bgcolor="#F6E3CE">
+				<td colspan=2 style="padding:3%;-webkit-border-bottom-left-radius: 12px;-webkit-border-bottom-right-radius: 12px;">
+					<span style="padding:3%; font-size:1.1em;line-height:150%;">简历简介：{{ staff.resume }}</span>
+				</td>
+			</tr>
+		</table>
+		</div><br><br><br>
 	{% endfor %}
+</div>
 {% endblock %}

@@ -76,10 +76,11 @@ def profile_settings(request, **kwargs):
 	if request.method == 'POST':
 		if 'save' in request.POST:
 			form = ProfileForm(request.POST,request.FILES)
+
 			if form.is_valid():
 				profile = form.save(commit=False)
 				#find user's previously stored profile info and overwrite it
-				ex_profile.gender = profile.gender
+				ex_profile.gender = profile.gender	
 				ex_profile.age = profile.age
 				ex_profile.enrolled = profile.enrolled
 				if profile.profile_img:
@@ -91,11 +92,14 @@ def profile_settings(request, **kwargs):
 						if os.path.exists(path) :
 							os.remove(path)
 					ex_profile.profile_img = profile.profile_img
-				ex_profile.save()
-
-				context['message'] = '您的个人信息已经被成功更新' 
+				if profile.age >= 0 and profile.age < 130:
+					ex_profile.save()
+					context['message'] = u'您的个人信息已经被成功更新' 
+				else:
+					context['message'] = u'您输入的年龄超出范围，请重新输入'
 			else:
 				context['message'] = '对不起,由于格式问题您的信息没有被成功更新'
+
 			context['form'] = form
 	else:
 		form = ProfileForm(instance = ex_profile)
