@@ -4,13 +4,14 @@ from django.template.context import RequestContext
 from django.shortcuts import render_to_response,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
+from django.core.files.storage import default_storage
 
 import account.views
 
 from .forms import SignupForm
 from red_cross_project.forms import ProfileForm,LoginForm
 from red_cross_project.models import ExtraProfile,Staff
-from red_cross_project.settings import MEDIA_ROOT
+#from red_cross_project.settings import MEDIA_ROOT
 
 import datetime
 import os
@@ -83,14 +84,17 @@ def profile_settings(request, **kwargs):
 				ex_profile.gender = profile.gender	
 				ex_profile.age = profile.age
 				ex_profile.enrolled = profile.enrolled
+				ex_profile.history = profile.history
 				if profile.profile_img:
 					#if the user uploads a new profile image
 					#if the user has set a profile image before
 					#find the previous one's path and delete it from the file-system(if file exist)
 					if ex_profile.profile_img:
-						path = os.path.join(MEDIA_ROOT,ex_profile.profile_img.name)
-						if os.path.exists(path) :
-							os.remove(path)
+						name = ex_profile.profile_img.name
+						if default_storage.exists(name):
+							default_storage.delete(name)
+						else:
+							raise Exception('the previous file path is wrong')
 					ex_profile.profile_img = profile.profile_img
 				if profile.age >= 0 and profile.age < 130:
 					ex_profile.save()

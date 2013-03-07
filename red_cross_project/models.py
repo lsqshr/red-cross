@@ -34,8 +34,9 @@ class ExtraProfile(models.Model):
 	enrolled = models.NullBooleanField(default=False, verbose_name="已经是中心病人")
 	register_time = models.DateTimeField(default=datetime.datetime.now(), verbose_name="注册时间")
 	user = models.OneToOneField(User, related_name = 'user_profile', verbose_name="对应的用户")
-	profile_img = models.ImageField(upload_to = 'images/%Y/%m/%d', null=True, verbose_name="肖像照片")
+	profile_img = models.ImageField(upload_to = 'profile_images/', null=True, verbose_name="肖像照片")
 	role = models.CharField(default='P',max_length=1,choices=role_choices, verbose_name="身份") #P:patient/D:doctor, it can only changed by administrator
+	history = models.CharField(max_length = 255, null = True,verbose_name="已经是中心病人") # history of the diseases the user has suffered before
 
 	def __unicode__(self):
 		return self.user.username

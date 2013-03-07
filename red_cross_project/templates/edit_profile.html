@@ -21,25 +21,30 @@
 			<div style="margin-top:1%; text-align:center; font-size:17px;color:#C34A2C;">{{ message }}</div>
 <form action="" method="post" enctype="multipart/form-data">
 	{% csrf_token %}
-	<div><br><center>年龄:{{form.age}}{{form.age.errors}}</center></div>
-	<div style="margin-left:32.8%;">性别:{{form.gender}}{{form.gender.errors}}</div>
-	{% if request.user.user_profile.role == 'P' %}
-		<div style="margin-left:32.8%;">是否已为本中心患者:{{form.enrolled}}</div>
-	{% endif %}
-	<div style="margin-left:32.8%;">头像:
-		{% if request.user.user_profile and request.user.user_profile.profile_img %}
-			<img class="profile_img" src="{{request.user.user_profile.profile_img.url}}"/>
-		{% else %}
-			{% if request.user.user_profile.gender == 'M' %}
-				<img class="profile_img" src="{{ STATIC_URL }}images/male.jpg" />	
-			{% else %}
-				<img class="profile_img" src="{{ STATIC_URL }}images/female.jpg" />	
-			{% endif %}
+	<div style="margin-left:32.8%;">
+		<div>年龄:{{form.age}}{{form.age.errors}}</div>
+		<div>性别:{{form.gender}}{{form.gender.errors}}</div>
+		{% if request.user.user_profile.role == 'P' %}
+			<div >是否已为本中心患者:{{form.enrolled}}</div>
 		{% endif %}
-		<br/>
-		{{form.profile_img}}
-		{{form.profile_img.errors}}
-	</div> 
+		<div>
+		病史: <span style="color:red;">(最多255字)</span>{{form.history}}
+		</div>
+		<div>头像:
+			{% if request.user.user_profile and request.user.user_profile.profile_img %}
+				<img class="profile_img" src="{{request.user.user_profile.profile_img.url}}"/>
+			{% else %}
+				{% if request.user.user_profile.gender == 'M' %}
+					<img class="profile_img" src="{{ STATIC_URL }}images/male.jpg" />	
+				{% else %}
+					<img class="profile_img" src="{{ STATIC_URL }}images/female.jpg" />	
+				{% endif %}
+			{% endif %}
+			<br/>
+			{{form.profile_img}}
+			{{form.profile_img.errors}}
+		</div> 
+	</div>
 
 	<div id="submit_question_btn" >
 		<br><button name="save" type="submit" class="btn" style="
