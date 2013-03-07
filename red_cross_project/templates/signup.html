@@ -1,0 +1,65 @@
+{% extends "site_base.html" %}
+
+{% block extra_head %}
+{% endblock %}
+
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block head_title %}{% trans "登录" %}{% endblock %}
+
+{% block content %}
+     <!-- WRAPPER -->
+    <div id="wrapper">
+        <div id="shell" class="container" style="text-align:center;">
+            <div id="content" class="pad" 
+            style="
+            background-color:#EBDDE2;
+            width:65%;height:55%;
+            margin-left:12%;
+            margin-top:10%;
+            padding:5%;
+            -webkit-border-radius: 30px;
+			border-radius: 30px;">
+                <form action="" method="post">
+                {% csrf_token %}
+                <p style="font-color:#660d05;" font-size=20px;><center>您好朋友，欢迎注册成为新用户</center></p>
+                {% for error in errors %}
+                    <center><font color="#F62217">{{error}}</font></center>
+                {% endfor %}
+                    <p><span class="field big">
+                        <center><label for="username">用户名:</label>
+                        {{form.username}}</center>
+                    </p>
+                    <p>
+                        <span class="field password big">
+                        <center><p style="margin-left:29%;"><label for="username">密码:</label>
+                        {{form.password}}
+                            </p></center>
+                        </span>
+                    </p>
+                    <p>
+                        <span class="field password big">
+                        <center><p style="margin-left:29%;"><label for="username">重复:</label>
+                        {{form.confirm_password}}
+                            </p></center>
+                        </span>
+                    </p>
+                    <center><div id="form_submit">
+                        <input style="
+                        width:17%;
+                        height:2%;
+                        background-color:#6960EC;
+                        padding:0.5%;
+                        color:white;
+                        -webkit-border-radius: 4px;
+						border-radius: 4px;
+						margin-left:31%;" type="submit" name="signup_submit" value="注册为新用户" class="btn" />
+                    </div><center>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END WRAPPER -->
+{% endblock %}

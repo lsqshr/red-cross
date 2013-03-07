@@ -16,23 +16,38 @@ from red_cross_project.models import ExtraProfile,Staff
 import datetime
 import os
 
-class SignupView(account.views.SignupView):
-    
-    form_class = SignupForm
-    
-    def after_signup(self, form):
-        self.create_profile(form)
-        super(SignupView, self).after_signup(form)
-    
-    def create_profile(self, form):
-        profile = self.created_user.profile
-        profile.save()
-        ex_profile = ExtraProfile(register_time=datetime.datetime.now(),user=self.created_user)
-        ex_profile.save()
-
 def homepage(request):
 	return render_to_response('homepage2.html',{'page_name':'homepage'},\
 		context_instance=RequestContext(request,{}))
+
+
+def signup(request):
+	errors = []	
+	context = {}
+	context['page_name'] = 'signup'
+	context['errors'] = errors
+	context['form'] = SignupForm()
+	if request.method == "POST":
+		if 'signup_submit' in request.POST : #user submited the form to login
+			form = SignupForm(request.POST)
+			if form.is_valid():
+				cd = form.cleaned_data
+				username=cd['username']
+				password=cd['password']
+				user = User(username=username,password=password,email='')
+				user.save()
+				exprofile = ExtraProfile(register_time=datetime.datetime.now(),user=user)
+				exprofile.save()
+				#automatically login this user
+				auth.login(request,user)
+				return HttpResponseRedirect('/')
+			else:# form is not valid
+				errors.append('您提交的信息有误，请根据提示修改')
+				context['form'] = form
+	else:
+			return render_to_response('signup.html',context,\
+			                                        context_instance=RequestContext(request,{}))
+
 
 def login(request):
 	errors=[]
@@ -64,9 +79,11 @@ def login(request):
 	return render_to_response('login.html', {'form':form,'page_name':'Log-in'},\
 	     context_instance=RequestContext(request, {}))
 
+
 @login_required
 def profile_settings(request, **kwargs):
 	context = {}
+	#do it just in case
 	if hasattr(request.user,'user_profile'): 
 		ex_profile = request.user.user_profile
 	else:
@@ -117,6 +134,7 @@ def guide(request):
 	context = {'page_name': 'guide'}
 	return render_to_response('guide.html',context,\
 			context_instance=RequestContext(request, {}) )
+
 
 def staffs(request):
 	#get all the staff
