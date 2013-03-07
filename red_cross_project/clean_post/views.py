@@ -15,6 +15,7 @@ import datetime
 # Create your views here.
 def posts(request, **kwargs):
 	total_set = []
+	context = {}
 	debug = []
 	#get the  list to render
 	if request.method == 'GET':
@@ -29,6 +30,7 @@ def posts(request, **kwargs):
 					#start to search for posts and replies using whoosh 
 					searcher = Searcher()
 					matching_ids = searcher.search(unicode(keywords),u'post')
+					context['keywords'] = keywords
 					debug.append(unicode(keywords))
 					debug.append(matching_ids)
 					for id in matching_ids:
@@ -57,7 +59,7 @@ def posts(request, **kwargs):
 		posts = total_set[ start_idx : start_idx + 12 ]
 
 	#prepare the context
-	context = {'posts':posts}
+	context['posts'] = posts
 	context['search_form'] =  SearchForm()
 	context['cur_index'] = page_index
 

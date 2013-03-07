@@ -34,19 +34,30 @@ def signup(request):
 				cd = form.cleaned_data
 				username=cd['username']
 				password=cd['password']
-				user = User(username=username,password=password,email='')
-				user.save()
-				exprofile = ExtraProfile(register_time=datetime.datetime.now(),user=user)
-				exprofile.save()
+				confirm_password = cd['confirm_password']
+				if confirm_password != password :
+					errors.append("两次输入的密码不一样")
+					context['form'] = form
+					return render_to_response('signup.html',context,\
+	                                        context_instance=RequestContext(request,{}))
+
+				user = auth.models.User()
+				user.username = username
+				user.set_password(password)
+				user = user.save()
 				#automatically login this user
-				auth.login(request,user)
-				return HttpResponseRedirect('/')
+				user=auth.authenticate(username=username,password=password)
+				if user is not None and user.is_active:
+				    #Correct Password, and User is marked "active"
+				    auth.login(request, user)
+				    #Redirect to a success page.
+				    return HttpResponseRedirect("/") 
+
 			else:# form is not valid
 				errors.append('您提交的信息有误，请根据提示修改')
 				context['form'] = form
-	else:
-			return render_to_response('signup.html',context,\
-			                                        context_instance=RequestContext(request,{}))
+	return render_to_response('signup.html',context,\
+	                                        context_instance=RequestContext(request,{}))
 
 
 def login(request):

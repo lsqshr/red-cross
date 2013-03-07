@@ -28,21 +28,29 @@
                 {% for error in errors %}
                     <center><font color="#F62217">{{error}}</font></center>
                 {% endfor %}
+                {{ form.non_field_errors }}
+                {% if form.subject.errors %}
+                    <ol>
+                    {% for error in form.subject.errors %}
+                        <li><strong>{{ error|escape }}</strong></li>
+                    {% endfor %}
+                    </ol>
+                {% endif %}
                     <p><span class="field big">
                         <center><label for="username">用户名:</label>
-                        {{form.username}}</center>
+                        {{form.username}}{{form.username.errors}}</center>
                     </p>
                     <p>
                         <span class="field password big">
                         <center><p style="margin-left:29%;"><label for="username">密码:</label>
-                        {{form.password}}
+                        {{form.password}}{{form.password.errors}}
                             </p></center>
                         </span>
                     </p>
                     <p>
                         <span class="field password big">
-                        <center><p style="margin-left:29%;"><label for="username">重复:</label>
-                        {{form.confirm_password}}
+                        <center><p style="margin-left:24.7%;"><label for="username">重复密码:</label>
+                        {{form.confirm_password}}{{form.confirm_password.errors}}
                             </p></center>
                         </span>
                     </p>

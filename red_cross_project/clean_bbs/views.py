@@ -148,17 +148,14 @@ def post(request,**kwargs):
 				question.author = None
 			question.update_time = datetime.datetime.now()
 			question.post_time = datetime.datetime.now()
-
+			question.save()
 			# add the question to IR index
 			searcher = Searcher()
 			searcher.add_documents( question.id, question.title, question.content, u'question' )
 
-			debug.append('fuck not in')
 			if request.POST['auth'] == 'False' :
-				debug.append('in not auth')
 				temp_profile_form = TempProfileForm( request.POST )
 				if temp_profile_form.is_valid() :
-					question.save()
 					debug.append('in valid')
 					profile = temp_profile_form.save( commit = False )
 					profile.question = question

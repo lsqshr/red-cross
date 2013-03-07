@@ -66,6 +66,8 @@
 			</tr>
 		</table>
 	</div>
+{% empty %}
+	很抱歉，没有找到<span style="color:red;">{{ keywords }}</span>相应的条目
 {% endfor %}
 <div class="thread_page_index">
 	<a href="{% url post_page_index last_index %}">上一页</a>

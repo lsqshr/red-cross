@@ -128,7 +128,7 @@
 		<span style="float:left;width:60%;">
 			<form action="" method="post" enctype="multipart/form-data">
 				{% csrf_token %}
-				<div>您的回答： {{ form.content }}
+				<div>您的评论： {{ form.content }}
 					<button name="reply" type="submit" class="btn" style="float:right;margin-right:-9%;">评论</button>
 				</div>
 			</form>

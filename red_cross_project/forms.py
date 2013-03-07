@@ -13,23 +13,25 @@ class LoginForm(forms.Form):
 	username = forms.CharField( max_length=255,required=True)
 	password = forms.CharField( max_length=255,required=True,widget=forms.PasswordInput)
 
-class SignupForm(account.forms.SignupForm):
+class SignupForm(forms.Form):
 	username = forms.CharField( max_length=255,required=True)
 	password = forms.CharField( max_length=255,required=True,widget=forms.PasswordInput)
 	confirm_password = forms.CharField( max_length=255,required=True,widget=forms.PasswordInput)
 
 	def clean_username(self):
 		username = self.cleaned_data['username']
-		if User.objects.exists(username=username):
+		if User.objects.filter(username=username).exists():
 			raise forms.ValidationError("对不起，这个用户名已经有其他人用了")
 
 		return username
 
 	def clean_password(self):
 		password = self.cleaned_data['password']
-		confirm_password = self.cleaned_data['password']
-		if password != confirm_password:
-			raise forms.ValidationError("请您两次输入一样的密码")
+		if len(password) == 0:
+			raise forms.ValidationError("密码不能为空")
+
+
+		return password
 
 class SearchForm(forms.Form):
     key_words = forms.CharField(max_length = 50, required = True)

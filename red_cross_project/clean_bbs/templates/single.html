@@ -120,18 +120,20 @@
 	</div>
 	{% endfor %}
 </div>
-
+<hr style="margin-top:5%;">
 {% if authenticated %}
-<div style="margin-left:-10%;">
-	{% include 'user_profile.html' %}
-</div>
-	<div class="single_form" style="float:left;margin-left:-10%;">
-		<form action="" method="post" enctype="multipart/form-data">
-			{% csrf_token %}
-			<div>您的回答： {{ form.content }}
-				<button name="answer" type="submit" class="btn" style="float:right;margin-right:-260%;">回答</button>
-			</div>
-		</form>
+	<div style="margin-left:-10%;margin-top:5%;"> 
+		<span>
+			{% include 'user_profile.html' %} 
+		</span>
+		<span style="float:left;width:60%;">
+			<form action="" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div>您的回答： {{ form.content }}
+					<button name="answer" type="submit" class="btn" style="float:right;margin-right:-9%;">回答</button>
+				</div>
+			</form>
+		<span>
 	</div>
 {% else %}
 	<div class="auth_notify_div">
