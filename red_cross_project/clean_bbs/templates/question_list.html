@@ -16,6 +16,7 @@
 				<td class="thread_td2">
 					<span style="margin:5%;font-size:1.5em;">
 						<a href="/bbs/{{question.id}}" style="color:white;" class="thread_title">{{ question.title }}</a>
+						<span class="thread_title_hint"><-提示:点击题目查看答案</span>
 					</span>
 				</td>
 			</tr>
@@ -56,7 +57,7 @@
 						{% include "thread_profile.html" %}	
 					</td>
 					<td>
-						<span style="color:#585858;font-size:1.15em;float:right;margin-right:2%;">当前答案数({{question.answers.all|length}}) &nbsp &nbsp &nbsp &nbsp{{ question.update_time}}</span>
+						<span style="color:#585858;font-size:1.15em;float:right;margin-right:2%;"><a href="/bbs/{{question.id}}">当前答案数({{question.answers.all|length}})</a> &nbsp &nbsp &nbsp &nbsp{{ question.update_time}}</span>
 					</td>
 				</tr>
 			</table>

@@ -606,3 +606,10 @@ INPUT.hintTextboxActive { color: #000; }
 .errors {
 	color:red;
 }
+
+.thread_title_hint {
+	margin:5%;
+	margin-left:10%;
+	font-size:1.2em;
+	color:white;
+}	

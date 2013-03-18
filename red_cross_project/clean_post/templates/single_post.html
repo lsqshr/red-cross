@@ -54,7 +54,9 @@
 				</td>
 				<td class="thread_td2">
 					<span class="content">
-						{{ post.content }}
+						{% autoescape off %}
+							{{ post.content }}
+						{% endautoescape %}
 					</span>
 				</td>
 			</tr>
