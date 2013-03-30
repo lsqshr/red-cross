@@ -613,3 +613,8 @@ INPUT.hintTextboxActive { color: #000; }
 	font-size:0.6em;
 	color:white;
 }	
+
+.newpost{
+	float:right;
+	margin-right:-50%;
+}

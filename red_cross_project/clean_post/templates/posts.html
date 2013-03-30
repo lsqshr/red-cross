@@ -14,19 +14,11 @@
 		{% for d in debug %}
 			{{d}}
 		{% endfor %}
-		<div style="margin-left:5%;margin-top:2%;margin-bottom:5%;display:inline;">
-			<table>
-				<tr>
-					<td>
-						{% include "search_bar.html" %}
-						{% include "filters.html" %}
-					</td>
-					<td>
-						<a href="{% url new_post %}" class="btn">发表新文章</a>
-						<span>(当前文章总数: {{ total_set_size }})</span>
-					</td>
-				</tr>
-			</table>
+		<div style="margin-top:5%;margin-bottom:2%;float:right;width:100%;">
+			<span class="newpost">
+				<a href="{% url new_post %}" class="btn">发表新文章</a>
+				<span>(当前文章总数: {{ total_set_size }})</span>
+			</span>
 		</div>
 		<div style="margin-left:7%;">
 		{% include "post_list.html" %}

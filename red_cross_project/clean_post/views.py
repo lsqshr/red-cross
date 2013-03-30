@@ -6,9 +6,7 @@ from django.template.context import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from red_cross_project.clean_post.models import *
-from red_cross_project.forms import SearchForm
 from red_cross_project.clean_post.forms import *
-from red_cross_project.woosh_searcher import Searcher
 
 import datetime
 
@@ -19,29 +17,7 @@ def posts(request, **kwargs):
 	debug = []
 	#get the  list to render
 	if request.method == 'GET':
-		if 'search' in request.GET:
-			search_form = SearchForm(request.GET)
-			if search_form.is_valid():
-				cd = search_form.cleaned_data
-				keywords = cd['key_words']
-				if keywords is None:
-					total_set = Post.objects.order_by('-update_time')
-				else:
-					#start to search for posts and replies using whoosh 
-					searcher = Searcher()
-					matching_ids = searcher.search(unicode(keywords),u'post')
-					context['keywords'] = keywords
-					debug.append(unicode(keywords))
-					debug.append(matching_ids)
-					for id in matching_ids:
-						try:
-							total_set.append(Post.objects.get(id=id))
-						except:
-							raise Exception('This post does not exist anymore')
-			else:
-				total_set = Post.objects.order_by('-update_time')
-		else: #no form submited
-			total_set = Post.objects.order_by('-update_time')
+		total_set = Post.objects.order_by('-update_time')
 
 	total_set_size = len(total_set)
 	total_page_number = total_set_size/12+1
@@ -60,7 +36,6 @@ def posts(request, **kwargs):
 
 	#prepare the context
 	context['posts'] = posts
-	context['search_form'] =  SearchForm()
 	context['cur_index'] = page_index
 
 	if page_index is 1:

@@ -7,9 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from red_cross_project.clean_bbs.models import Question,Answer
 from red_cross_project.clean_bbs.forms import *
-from red_cross_project.forms import SearchForm
 
-from red_cross_project.woosh_searcher import Searcher
 import datetime
 
 def bbs(request, **kwargs):
@@ -18,27 +16,7 @@ def bbs(request, **kwargs):
 	context = {}
 	#get the question list to render
 	if request.method == 'GET':
-		if 'search' in request.GET:
-			search_form = SearchForm(request.GET)
-			if search_form.is_valid():
-				cd = search_form.cleaned_data
-				keywords = cd['key_words'] 
-				context['keywords'] = keywords
-				if keywords is None or keywords == "":
-					total_set = Question.objects.order_by('-update_time')
-				else:
-					#start to search for questions and answers using whoosh 
-					searcher = Searcher()
-					matching_ids = searcher.search(unicode(keywords),u'question')
-					for id in matching_ids:
-						try:
-							total_set.append(Question.objects.get(id=id))
-						except:
-							raise Exception('This question does not exist anymore')
-			else:
-				total_set = Question.objects.order_by('-update_time')
-		else: #no form submited
-			total_set = Question.objects.order_by('-update_time')
+		total_set = Question.objects.order_by('-update_time')
 
 
 	total_set_size = len(total_set)
@@ -59,7 +37,6 @@ def bbs(request, **kwargs):
 	#prepare the context
 	context['request'] = request
 	context['questions'] = questions
-	context['search_form'] =  SearchForm()
 	context['cur_index'] = page_index
 	if page_index is 1:
 		context['last_index'] = 1
@@ -72,7 +49,6 @@ def bbs(request, **kwargs):
 	context['total_set_size'] = total_set_size
 	context['total_page_number'] = total_page_number
 
-	#context['debug'] = debug
 	context['page_name'] = 'bbs'
 
 	return render_to_response("bbs.html",context,context_instance = RequestContext(request, {}))

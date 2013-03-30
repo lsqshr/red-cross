@@ -33,10 +33,7 @@ class SignupForm(forms.Form):
 
 		return password
 
-class SearchForm(forms.Form):
-    key_words = forms.CharField(max_length = 50, required = True)
-
-
+		
 class ProfileForm(forms.ModelForm):
 
 	class Meta:
