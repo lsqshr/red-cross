@@ -8,7 +8,7 @@ from red_cross_project.clean_bbs.models import Question,Answer
 
 class Searcher(object):
 	ix = None
-	index_dir = "red_cross_project/site_media/index"
+	index_dir = "index"
 
 	def create_schema(self):
 		analyzer = RegexAnalyzer(ur"([\u4e00-\u9fa5])|(\w+(\.?\w+)*)")  
