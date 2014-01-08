@@ -192,11 +192,15 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 2
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_ACCESS_KEY_ID = 'AKIAIR3KX4VMXNL6XDTQ'    #Your Amazon Web Services access key, as a string.
 
-AWS_SECRET_ACCESS_KEY = 'pl93zMF6CMQyqazgzUuLcvxpWij+lMB1Zoq7DoKc' #Your Amazon Web Services secret access key, as a string.
+'''
+# these things should be filled at deployment
+AWS_ACCESS_KEY_ID = ''    #Your Amazon Web Services access key, as a string.
 
-AWS_STORAGE_BUCKET_NAME = 'hszzxyyszzx' #Your Amazon Web Services storage bucket name, as a string.
+AWS_SECRET_ACCESS_KEY = '' #Your Amazon Web Services secret access key, as a string.
+
+AWS_STORAGE_BUCKET_NAME = '' #Your Amazon Web Services storage bucket name, as a string.
+'''
 
 #AWS_CALLING_FORMAT #(Subdomain hardcoded in s3boto)
 
